@@ -1,6 +1,6 @@
 # Budgetarian
 
-Budget every sahod: per-cutoff budgeting, spending tracking and bank reconciliation.
+Budget every sahod: per-sahod budgeting, spending tracking and bank matching.
 
 This folder is the stand-alone web app. Once it's on GitHub Pages and connected to Supabase,
 anyone can open it in a browser, create an account, and add it to their home screen.

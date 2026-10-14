@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Budgetarian</title>
-<meta name="description" content="Budget every sahod: per-cutoff budgeting, spending and bank reconciliation.">
+<meta name="description" content="Budget every sahod: per-sahod budgeting, spending and bank matching.">
 <meta name="theme-color" content="#0f4c5c">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
@@ -234,8 +234,8 @@ h2.boxh.shut{border-bottom:0;padding-bottom:0}
 <div id="auth" class="auth" hidden></div>
 <header class="top">
   <img class="logo" alt="Budgetarian" width="40" height="40" src="data:image/jpeg;base64,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">
-  <button class="period-btn" data-act="togglePanel" aria-label="Change cutoff">
-    <b id="pLabel">No cutoff yet</b><span id="pSub">Tap to start a cutoff</span>
+  <button class="period-btn" data-act="togglePanel" aria-label="Change sahod">
+    <b id="pLabel">No sahod yet</b><span id="pSub">Tap to start a sahod</span>
   </button>
   <div class="status" id="status" role="status"></div>
 </header>
@@ -248,7 +248,7 @@ h2.boxh.shut{border-bottom:0;padding-bottom:0}
   <button data-tab="update" aria-label="Update" title="Update"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2.5 4.5 13.5h6.5l-1 8 8.5-11h-6.5z"/></svg></button>
   <button data-tab="income" aria-label="Income" title="Income"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
   <button data-tab="spend" aria-label="Spend" title="Spend"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
-  <button data-tab="plan" aria-label="Roll" title="Roll"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 4.5v15"/></svg></button>
+  <button data-tab="plan" aria-label="Money check" title="Money check"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 4.5v15"/></svg></button>
   <button data-tab="bank" aria-label="Bank" title="Bank"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h8l4 4v13H6z"/><path d="M14 3.5v4h4M9 12h6M9 15.5h6"/></svg></button>
   <button data-tab="setup" aria-label="Settings" title="Settings"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
 </nav>
@@ -350,7 +350,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.1";
+var APP_VERSION="1.0.2";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -492,7 +492,7 @@ function deleteAccount(){
   var wipe=premium===true;sb.rpc("delete_my_account").then(function(r){if(r.error)throw r.error;return sb.auth.signOut()}).then(function(){if(wipe){try{localStorage.removeItem(LS_KEY)}catch(e){}}location.reload()})
     .catch(function(){setStatus("Could not delete the account. Check your connection and try again.")});
 }
-/* ---------- dates and cutoffs ---------- */
+/* ---------- dates and sahods ---------- */
 var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 function iso(y,m,d){return y+"-"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0")}
 function parts(s){var a=s.split("-").map(Number);return{y:a[0],m:a[1],d:a[2]}}
@@ -654,7 +654,7 @@ function pastPeriods(){
   return state.periods.filter(function(p){return (p.pay||p.start)<(a.pay||a.start)});
 }
 function eyeBtn(n){
-  var w=n===1?"1 earlier cutoff":n+" earlier cutoffs";
+  var w=n===1?"1 earlier sahod":n+" earlier sahods";
   return '<button class="eye" data-act="togglePast" aria-pressed="'+showPast+'">'+(showPast?EYE:EYE_OFF)+'<span>'+(showPast?"Hide "+w:w+" hidden")+'</span></button>';
 }
 function renderPanel(){
@@ -673,17 +673,17 @@ function renderPanel(){
     }
     h+='</div>';
   }
-  h+='<h2>Start a new cutoff</h2><label for="nPay">Payroll date</label><input type="date" id="nPay" value="'+n+'">'+
+  h+='<h2>Start a new sahod</h2><label for="nPay">Payroll date</label><input type="date" id="nPay" value="'+n+'">'+
      '<p class="hint">A payroll early in the month covers the 16th to month end before it. A payroll mid-month covers the 1st to the 15th.</p>';
-  if(state.periods.length)h+='<p class="hint">Payroll and budget amounts are copied from the last cutoff so you only change what moved.</p>';
-  h+='<div class="acts"><button class="btn" data-act="newPeriod">Start cutoff</button>';
-  if(cur())h+='<button class="btn danger" data-act="del" data-coll="periods" data-id="'+cur().id+'">Delete open cutoff</button>';
+  if(state.periods.length)h+='<p class="hint">Payroll and budget amounts are copied from the last sahod so you only change what moved.</p>';
+  h+='<div class="acts"><button class="btn" data-act="newPeriod">Start sahod</button>';
+  if(cur())h+='<button class="btn danger" data-act="del" data-coll="periods" data-id="'+cur().id+'">Delete open sahod</button>';
   h+='<button class="btn ghost" data-act="togglePanel">Close</button></div></div>';
   el.innerHTML=h;
 }
 
 function renderIncome(p){
-  if(!p)return emptyState("Start a cutoff to enter your payroll and other income.","Start a cutoff","togglePanel");
+  if(!p)return emptyState("Start a sahod to enter your payroll and other income.","Start a sahod","togglePanel");
   var mand=state.dedLines.filter(function(l){return l.group==="mandatory"});
   var oth=state.dedLines.filter(function(l){return l.group!=="mandatory"});
   var h='<h2>Payroll</h2><div class="card">';
@@ -732,14 +732,14 @@ function checkStrip(){
         '<div class="verdict" data-out="verdict"></div><div class="jump"><button data-jump="secIncome">Income</button><button data-jump="secBudget">Budget breakdown</button></div></div>';
 }
 function renderBoth(p){
-  if(!p)return emptyState("Start a cutoff to enter your payroll and budget.","Start a cutoff","togglePanel");
+  if(!p)return emptyState("Start a sahod to enter your payroll and budget.","Start a sahod","togglePanel");
   var et=editTpl&&p.id===editTpl;
   var tpl0=state.templates.filter(function(x){return x.id===editTpl})[0];
   var nUse=state.periods.filter(function(q){return !q.locked&&!q.lockB&&q.tpl===editTpl&&matchesTpl(q,tpl0)}).length;
-  if(et)return '<div class="locknote" style="display:block;background:var(--t-budget);border-color:var(--c-budget);color:var(--c-budget)"><span>Editing template \u201C'+esc(p.name)+'\u201D. Nothing is saved until you tap Save. Save also updates the '+nUse+' unlocked cutoff'+(nUse===1?'':'s')+' still using this template.</span><div class="acts" style="display:flex;gap:.5rem;margin-top:.5rem"><button class="btn small" data-act="tplDone">Save template</button><button class="btn ghost small" data-act="tplCancel">Cancel</button></div></div>'+checkStrip()+
+  if(et)return '<div class="locknote" style="display:block;background:var(--t-budget);border-color:var(--c-budget);color:var(--c-budget)"><span>Editing template \u201C'+esc(p.name)+'\u201D. Nothing is saved until you tap Save. Save also updates the '+nUse+' unlocked sahod'+(nUse===1?'':'s')+' still using this template.</span><div class="acts" style="display:flex;gap:.5rem;margin-top:.5rem"><button class="btn small" data-act="tplDone">Save template</button><button class="btn ghost small" data-act="tplCancel">Cancel</button></div></div>'+checkStrip()+
     '<h2 id="secIncome" class="sec band c-income">Income</h2><div class="sect c-income">'+renderIncome(p)+'</div><h2 id="secBudget" class="sec band c-budget">Budget breakdown</h2><div class="sect c-budget">'+renderBudget(p)+'</div>'+
     '<h2>Template</h2><div class="card"><div class="setrow"><div class="line"><input class="txt" id="tplName" placeholder="New name" aria-label="Name for a copy"><button class="btn small" data-act="tplSave">Save as a new template</button></div></div><div class="setrow"><div class="line"><button class="btn" data-act="tplDone" style="flex:1">Save template</button><button class="btn ghost" data-act="tplCancel" style="flex:1">Cancel</button></div></div></div>';
-  return (p.locked?'<div class="locknote">'+LOCK+'<span>Period locked. Payroll, budget, bank balances, spending and recon are all frozen.</span><button class="btn small" data-act="lock" data-id="'+p.id+'">Unlock period</button></div>':p.lockB?'<div class="locknote">'+LOCK+'<span>Budget locked. Payroll and budget are frozen; bank balances, spending and recon can still be updated.</span><button class="btn small" data-act="lockB" data-id="'+p.id+'">Unlock budget</button></div>':'')+checkStrip()+'<h2 id="secIncome" class="sec band c-income">Income</h2><div class="sect c-income">'+renderIncome(p)+'</div><h2 id="secBudget" class="sec band c-budget">Budget breakdown</h2><div class="sect c-budget">'+renderBudget(p)+'</div>'+tplBar();
+  return (p.locked?'<div class="locknote">'+LOCK+'<span>Period locked. Payroll, budget, bank balances, spending and items to match are all frozen.</span><button class="btn small" data-act="lock" data-id="'+p.id+'">Unlock period</button></div>':p.lockB?'<div class="locknote">'+LOCK+'<span>Budget locked. Payroll and budget are frozen; bank balances, spending and items to match can still be updated.</span><button class="btn small" data-act="lockB" data-id="'+p.id+'">Unlock budget</button></div>':'')+checkStrip()+'<h2 id="secIncome" class="sec band c-income">Income</h2><div class="sect c-income">'+renderIncome(p)+'</div><h2 id="secBudget" class="sec band c-budget">Budget breakdown</h2><div class="sect c-budget">'+renderBudget(p)+'</div>'+tplBar();
 }
 function renderBudgetBody(p,h){
   groups().forEach(function(g,i){
@@ -752,7 +752,7 @@ function renderBudgetBody(p,h){
   });
   h+='<h2>Budget by account</h2><div class="card">';
   state.accounts.forEach(function(a){h+='<div class="row"><div class="lbl">'+esc(a.name||"Unnamed")+'</div><div class="val" data-out="acct" data-a="'+a.id+'"></div></div>'});
-  h+='</div><p class="hint">This is how much of this cutoff\u2019s budget should sit in each account.</p>';
+  h+='</div><p class="hint">This is how much of this sahod\u2019s budget should sit in each account.</p>';
   return h;
 }
 
@@ -761,10 +761,10 @@ function tplOptions(first){
   return '<option value="">'+esc(first)+'</option>'+state.templates.map(function(t){return '<option value="'+t.id+'">'+esc(t.name)+'</option>'}).join("");
 }
 function tplBar(){
-  var h='<h2>Templates</h2><p class="hint">A template keeps payroll, other income and budget amounts under a name, ready to reuse. To change a template, pick it and tap Edit. Typing in the boxes above changes this cutoff only, not your templates.</p><div class="card">';
+  var h='<h2>Templates</h2><p class="hint">A template keeps payroll, other income and budget amounts under a name, ready to reuse. To change a template, pick it and tap Edit. Typing in the boxes above changes this sahod only, not your templates.</p><div class="card">';
   if(state.templates.length)h+='<div class="setrow"><div class="line"><select id="tplPick" aria-label="Template">'+tplOptions("Choose a template\u2026")+'</select>'+
     '<button class="btn small" data-act="tplApply">Use</button><button class="btn ghost small" data-act="tplEdit">Edit</button><button class="btn danger small" data-act="tplDel">Delete</button></div></div>';
-  h+='<div class="setrow"><div class="line"><input class="txt" id="tplName" placeholder="Name, e.g. Regular cutoff" aria-label="Template name"><button class="btn small" data-act="tplSave">Save as template</button></div></div></div>';
+  h+='<div class="setrow"><div class="line"><input class="txt" id="tplName" placeholder="Name, e.g. Regular sahod" aria-label="Template name"><button class="btn small" data-act="tplSave">Save as template</button></div></div></div>';
   return h;
 }
 function applyTpl(p,t){p.gross=t.gross;p.grossAcct=t.grossAcct;p.ded=clone(t.ded);p.budget=clone(t.budget);p.tpl=t.id;
@@ -800,7 +800,7 @@ function makePeriod(pay){
 function planDates(){var d=[],c=state.periods.filter(function(p){return p.id===state.active})[0]||cur(),x=c?(c.pay||c.start):suggestPay();for(var i=0;i<13;i++){d.push(x);x=nextPay(x)}return d}
 function renderPlan(){
   var past=pastPeriods(),dates=(showPast?past.map(function(p){return p.pay||p.start}):[]).concat(planDates()),ps=dates.map(periodFor),os=ps.map(calc);
-  var h='<h2>Current cutoff and the next 6 months</h2><p class="hint">'+(state.templates.length?"Pick a template under a payroll date to fill that cutoff. Tap a date to open it.":"Save a template from the Budget tab, then use it here to fill upcoming cutoffs.")+'</p>'+(past.length?eyeBtn(past.length):"")+'<div class="plan"><table><thead><tr><th>Payroll</th>';
+  var h='<h2>Current sahod and the next 6 months</h2><p class="hint">'+(state.templates.length?"Pick a template under a payroll date to fill that sahod. Tap a date to open it.":"Save a template from the Budget tab, then use it here to fill upcoming sahods.")+'</p>'+(past.length?eyeBtn(past.length):"")+'<div class="plan"><table><thead><tr><th>Payroll</th>';
   dates.forEach(function(d,i){
     var a=parts(d),lab=MON[a.m-1]+" "+a.d,p=ps[i];
     h+='<th>'+(p?'<button data-act="open" data-id="'+p.id+'">'+lab+'</button>':lab);
@@ -860,7 +860,7 @@ function renderPlan(){
     ps.forEach(function(p){h+=p?'<td data-rc="'+p.id+':'+k+'"></td>':'<td></td>'});
     h+='</tr>';
   };
-  head("Reconciliation","recon",null,"variance");
+  head("Bank check","recon",null,"variance");
   state.accounts.forEach(function(a){
     row((a.name||"Unnamed")+(a.type==="card"?" owed":""),function(p){return (p.actual||{})[a.id]});
   });
@@ -874,20 +874,20 @@ function renderPlan(){
     rowIn(recLabel(it),function(p){return "rec:"+p.id+":"+it.id},function(p){return reconVal(p,it)},true,
       it.kind==="bank"?function(p){return '<button class="btn ghost small" style="display:block;margin:.3rem 0 0 auto" data-act="autoOffset" data-pid="'+p.id+'" data-id="'+it.id+'"'+(p.locked?' disabled':'')+' aria-label="Auto update '+esc(recName(it))+' for '+esc(labelOf(p))+'">Auto</button>'}:null);
   });
-  if(state.tx.some(function(t){return t.type==="exp"&&t.who}))rowRc("Due from others, from Spend","auto");
+  if(state.tx.some(function(t){return t.type==="exp"&&t.who}))rowRc("Owed to me, from Spend","auto");
   if(apCats("ap").length)rowRc("Appropriated Fund still due, auto","apdue");
   if(apCats("al").length)rowRc("Other allowance still due, auto","aldue");
-  rowRc("Variance","variance","total");
-  h+='</tbody></table></div><p class="hint">Left to budget and Variance should both read 0.00 in every column. Bank balances come from the Bank tab. Variance is the Difference plus the recon items, each with the sign you gave it.</p>';
-  h+='<h2 class="band c-recon">Recon items</h2><p class="hint">Drag the dots to reorder. Rename, set each item as a due from or a funding, tag it to an account, delete, or add items. Enter amounts in the table above. An amount keeps the sign you give it: enter a due from as minus and a funding as plus, so they add to the Difference and bring the Variance to zero. Use the \u00B1 button for minus.</p><div class="card">';
+  rowRc("Unexplained difference","variance","total");
+  h+='</tbody></table></div><p class="hint">Left to budget and Unexplained difference should both read 0.00 in every column. Bank balances come from the Bank tab. Unexplained difference is the Difference plus the items to match, each with the sign you gave it.</p>';
+  h+='<h2 class="band c-recon">Items to match</h2><p class="hint">Drag the dots to reorder. Rename, set each item as owed to me or a funding, tag it to an account, delete, or add items. Enter amounts in the table above. An amount keeps the sign you give it: enter money owed to you as minus and a funding as plus, so they add to the Difference and bring the Unexplained difference to zero. Use the \u00B1 button for minus.</p><div class="card">';
   state.recon.forEach(function(it){
-    h+=setRow("recon",it,'<select data-k="reconKind:'+it.id+'" aria-label="Type"><option value="from"'+(it.kind!=="to"?" selected":"")+'>Due from</option><option value="to"'+(it.kind==="to"?" selected":"")+'>Funding</option><option value="bank"'+(it.kind==="bank"?" selected":"")+'>Bank Offset</option></select>'+
+    h+=setRow("recon",it,'<select data-k="reconKind:'+it.id+'" aria-label="Type"><option value="from"'+(it.kind!=="to"?" selected":"")+'>Owed to me</option><option value="to"'+(it.kind==="to"?" selected":"")+'>Funding</option><option value="bank"'+(it.kind==="bank"?" selected":"")+'>Bank transfer</option></select>'+
       (it.kind==="bank"?'<select data-k="reconAcct:'+it.id+'" aria-label="Bank to add to">'+acctOptions(it.accountId,"Add to\u2026")+'</select><select data-k="reconAcct2:'+it.id+'" aria-label="Bank to deduct from">'+acctOptions(it.accountId2,"Deduct from\u2026")+'</select>'
                       :'<select data-k="reconAcct:'+it.id+'" aria-label="Account">'+acctOptions(it.accountId,"No account")+'</select>'));
   });
-  h+='<button class="add" data-act="add" data-coll="recon">Add recon item</button><button class="add" data-act="add" data-coll="recon" data-kind="bank">Add Bank Offset</button></div>'+
-     '<p class="hint">A Bank Offset moves an amount between two banks in the reconciliation: it adds to one and deducts from the other, so the Roll variance stays the same and only the Bank tab changes. It is named after the two banks you pick. Tap Auto to balance every bank against the others for that cutoff, so each bank’s check in the Bank tab reads zero. Auto reuses these offsets and adds new ones when needed.</p>';
-  if(dates.some(function(d,i){return !ps[i]&&defaultTpl(d)}))h+='<button class="btn" data-act="fillPlan">Fill unstarted cutoffs with their templates</button>';
+  h+='<button class="add" data-act="add" data-coll="recon">Add item to match</button><button class="add" data-act="add" data-coll="recon" data-kind="bank">Add bank transfer</button></div>'+
+     '<p class="hint">A bank transfer moves an amount between two banks in the bank check: it adds to one and deducts from the other, so the Money check difference stays the same and only the Bank tab changes. It is named after the two banks you pick. Tap Auto to balance every bank against the others for that sahod, so each bank’s check in the Bank tab reads zero. Auto reuses these transfers and adds new ones when needed.</p>';
+  if(dates.some(function(d,i){return !ps[i]&&defaultTpl(d)}))h+='<button class="btn" data-act="fillPlan">Fill unstarted sahods with their templates</button>';
   return h;
 }
 function todayIso(){var t=new Date();return iso(t.getFullYear(),t.getMonth()+1,t.getDate())}
@@ -924,9 +924,9 @@ function reconVal(p,it){
 function recName(it){
   if(it.kind!=="bank")return it.name||"Unnamed";
   var nm=function(id){var a=state.accounts.filter(function(x){return x.id===id})[0];return a?(a.name||"Unnamed"):"not set"};
-  return "Bank Offset, "+nm(it.accountId2)+" to "+nm(it.accountId);
+  return "Bank transfer, "+nm(it.accountId2)+" to "+nm(it.accountId);
 }
-function recLabel(it){return it.kind==="bank"?recName(it):(it.name||"Unnamed")+(it.kind==="to"?" (funding)":" (due from)")}
+function recLabel(it){return it.kind==="bank"?recName(it):(it.name||"Unnamed")+(it.kind==="to"?" (funding)":" (owed to me)")}
 function bankItems(p,aid,ids){
   var out=[];
   state.recon.forEach(function(it){
@@ -937,8 +937,8 @@ function bankItems(p,aid,ids){
       if(B===aid)out.push({it:it,v:-v,sub:"Deducted"});
     }else if(arItem()&&arItem().id===it.id&&!p.locked){
       var part=-uncollected(p,aid,ids[it.accountId]?it.accountId:null,ids);
-      if(Math.abs(part)>0.005)out.push({it:it,v:part,sub:"Due from, by income bank"});
-    }else if((ids[it.accountId]?it.accountId:null)===aid)out.push({it:it,v:v,sub:it.kind==="to"?"Funding":"Due from"});
+      if(Math.abs(part)>0.005)out.push({it:it,v:part,sub:"Owed to me, by income bank"});
+    }else if((ids[it.accountId]?it.accountId:null)===aid)out.push({it:it,v:v,sub:it.kind==="to"?"Funding":"Owed to me"});
   });
   return out;
 }
@@ -967,7 +967,7 @@ function autoBalance(p){
     var P=pos[0],N=neg[0],v=r2(Math.min(P[1],N[1]));
     var it=offs.filter(function(o){return !used[o.id]&&o.accountId===N[0]&&o.accountId2===P[0]})[0],sg=1;
     if(!it){it=offs.filter(function(o){return !used[o.id]&&o.accountId===P[0]&&o.accountId2===N[0]})[0];sg=-1}
-    if(!it){it={id:uidGen(),name:"Bank Offset",kind:"bank",accountId:N[0],accountId2:P[0]};state.recon.push(it);offs.push(it);made++;sg=1}
+    if(!it){it={id:uidGen(),name:"Bank transfer",kind:"bank",accountId:N[0],accountId2:P[0]};state.recon.push(it);offs.push(it);made++;sg=1}
     used[it.id]=1;p.recon[it.id]=r2(sg*v);
     P[1]=r2(P[1]-v);N[1]=r2(N[1]-v);if(P[1]<0.005)pos.shift();if(N[1]<0.005)neg.shift();srt(pos);srt(neg);
   }
@@ -1022,9 +1022,9 @@ function dueFrom(){
 }
 function nameOf(coll,id){if(coll==="cats"&&String(id).indexOf("ap_")===0){var y=balCats().filter(function(c){return c.id===id})[0];return y?fundLabel(y):"Removed"}var x=state[coll].filter(function(i){return i.id===id})[0];return x?(x.name||"Unnamed"):"Removed"}
 function renderSpend(p){
-  if(!p)return emptyState("Start a cutoff before you record spending.","Start a cutoff","togglePanel");
+  if(!p)return emptyState("Start a sahod before you record spending.","Start a sahod","togglePanel");
   var ap0=state.periods.filter(function(x){return x.id===state.active})[0];
-  var h=(ap0?'<p class="hint" style="font-weight:600">Recording spending for the current cutoff, the '+esc(labelOf(ap0))+'.</p>':'<div class="locknote"><span>No cutoff is ticked as current, so spending goes to the '+esc(labelOf(p))+'. Tick Current in Roll to fix where spending goes.</span></div>')+'<h2 class="band c-bal">Budget balances</h2><p class="hint">Type what you have used so far in the Used column. You can type a calculation like 500+250-100, as in Excel; tap the box again to see it. Tap \u00B1 to make an amount negative, which adds back to the balance. The small figure under each budget is the balance brought forward. Balance is brought forward plus budget, less used.</p>';
+  var h=(ap0?'<p class="hint" style="font-weight:600">Recording spending for the current sahod, the '+esc(labelOf(ap0))+'.</p>':'<div class="locknote"><span>No sahod is ticked as current, so spending goes to the '+esc(labelOf(p))+'. Tick Current in Money check to fix where spending goes.</span></div>')+'<h2 class="band c-bal">Budget balances</h2><p class="hint">Type what you have used so far in the Used column. You can type a calculation like 500+250-100, as in Excel; tap the box again to see it. Tap \u00B1 to make an amount negative, which adds back to the balance. The small figure under each budget is the balance brought forward. Balance is brought forward plus budget, less used.</p>';
   if(!state.cats.length)h+='<p class="hint">Add budget categories in Settings to see balances.</p>';
   else{
     h+='<div class="plan c-bal fit"><table><thead><tr><th>Category</th><th>Budget<small>+ fwd</small></th><th>Used</th><th>Balance</th></tr></thead><tbody>';
@@ -1057,7 +1057,7 @@ function renderSpend(p){
      [["exp","Expense or category total"],["xfer","Transfer between accounts"],["col","Collection from someone"]].map(function(o){return '<option value="'+o[0]+'"'+(txType===o[0]?" selected":"")+'>'+o[1]+'</option>'}).join("")+'</select>';
   var defPid=state.periods.some(function(x){return x.id===state.active})?state.active:p.id;
   var lim0=ap0?(ap0.pay||ap0.start):(p.pay||p.start);
-  h+='<label for="txPid">Charge to cutoff</label><select id="txPid">'+state.periods.filter(function(x){return (x.pay||x.start)<=lim0}).reverse().map(function(x){
+  h+='<label for="txPid">Charge to sahod</label><select id="txPid">'+state.periods.filter(function(x){return (x.pay||x.start)<=lim0}).reverse().map(function(x){
     return '<option value="'+x.id+'"'+(x.id===defPid?" selected":"")+'>'+esc(labelOf(x))+(x.id===state.active?" (current)":"")+'</option>'}).join("")+'</select>';
   if(txType==="exp"){
     h+='<label for="txCat">Budget category</label><select id="txCat"><option value="">Choose\u2026</option>'+cats+'</select>'+
@@ -1078,12 +1078,12 @@ function renderSpend(p){
      '<button class="btn" data-act="txAdd">Add transaction</button></div></div>';
   var df=dueFrom();
   if(df.length){
-    h+='<h2 class="band c-recon">Due from others</h2><div class="card">';
+    h+='<h2 class="band c-recon">Owed to me</h2><div class="card">';
     df.forEach(function(d){h+='<div class="row"><div class="lbl">'+esc(d.who)+'</div><div class="val">'+peso(d.amt)+'</div></div>'});
     h+='</div>';
   }
   var list=state.tx.filter(function(t){return t.pid===p.id}).sort(function(a,b){return a.date<b.date?1:-1});
-  h+='<h2 class="band c-used">Transactions in this cutoff</h2><div class="card">';
+  h+='<h2 class="band c-used">Transactions in this sahod</h2><div class="card">';
   if(!list.length)h+='<div class="row"><div class="lbl"><small>Nothing recorded yet.</small></div></div>';
   list.forEach(function(t){
     var title,sub=short(t.date);
@@ -1113,7 +1113,7 @@ function healthCheck(){
   });
   var pids={};state.periods.forEach(function(q){pids[q.id]=1});
   var tb=state.tx.length;state.tx=state.tx.filter(function(t){return pids[t.pid]});
-  if(state.tx.length<tb)notes.push("Removed "+(tb-state.tx.length)+" transactions that belonged to deleted cutoffs");
+  if(state.tx.length<tb)notes.push("Removed "+(tb-state.tx.length)+" transactions that belonged to deleted sahods");
   var nb=state.income.length;
   if(syncIncome())notes.push("Updated the collections list to match your income sources");
   if(state.income.length!==nb)notes.push((state.income.length>nb?"Added ":"Removed ")+Math.abs(state.income.length-nb)+" collections");
@@ -1134,7 +1134,7 @@ try{goalShow=localStorage.getItem(goalEyeKey)==="1"}catch(e){}
 function renderHome(){
   var fmt=function(n){return Math.round(r2(n)).toLocaleString("en-PH")},peso=function(n){var v=Math.round(r2(n));return (v<0?"-":"")+Math.abs(v).toLocaleString("en-PH")};
   var p=state.periods.filter(function(x){return x.id===state.active})[0]||cur();
-  if(!p)return emptyState("Start a cutoff to see your balances here.","Start a cutoff","togglePanel");
+  if(!p)return emptyState("Start a sahod to see your balances here.","Start a sahod","togglePanel");
   var hasAct=function(q){return Object.keys(q.actual||{}).some(function(k){return r2(q.actual[k])})};
   var bp=null;state.periods.forEach(function(q){if(payKey(q)<=payKey(p)&&hasAct(q))bp=q});
   var feat=featCat(),ai=arItem(),sids=savIds(),sacc=savAccts();
@@ -1157,7 +1157,7 @@ function renderHome(){
   var bud=0,usd=0;state.cats.forEach(function(c){bud+=r2(p.budget[c.id]);usd+=usedIn(p.id,c.id)});
   var pct=bud>0?Math.round(usd/bud*100):0;
   h+='<div class="dash3" style="margin-top:0;align-items:stretch"><div class="box sahod">'+(dleft===0?'<b>0</b><small>Sahod today!</small>':'<b'+(dleft>9?' class="two"':'')+'>'+dleft+'</b><small>'+(dleft===1?"day":"days")+' before sahod</small>')+'</div>'+
-     '<div class="box donut"><small>Budget used</small>'+ring(pct,pct>100?"var(--bad)":"var(--teal)",pct+" percent of this cutoff’s budget used")+'<small class="cap">'+peso(usd)+' of '+peso(bud)+'</small></div>';
+     '<div class="box donut"><small>Budget used</small>'+ring(pct,pct>100?"var(--bad)":"var(--teal)",pct+" percent of this sahod’s budget used")+'<small class="cap">'+peso(usd)+' of '+peso(bud)+'</small></div>';
   var ga=sacc.length?sacc:null,snames=sacc.map(function(a){return a.name||"Unnamed"}).join(", ");
   if(ga){
     var G=goals(),gv=0;if(bp)sacc.forEach(function(a){gv+=r2((bp.actual||{})[a.id])});gv=r2(gv);var t1=r2(G.ef1+G.travel),t2=r2(Math.max(G.ef2,G.ef1)+G.travel),two=t2>t1+0.005,second=two&&gv>=t1,tg=second?t2:t1;
@@ -1166,31 +1166,31 @@ function renderHome(){
        '<small class="cap">'+(tg<=0?'Set your goals in Settings':goalShow?peso(gv)+' of '+peso(tg):(two?'Milestone '+(second?"2":"1")+' of 2. ':'')+'Tap to show')+'</small></button>';
   }else h+='<div class="box donut"><small>Savings goals</small><small class="cap">Tick Savings account on a bank in the Bank tab</small></div>';
   h+='</div>';
-  /* Row 2: left to spend, collectibles and due from */
+  /* Row 2: left to spend, collectibles and owed to me */
   var hasAl=!!(feat||alc.length),rt=hasAl?fv:0;rest.forEach(function(x){rt+=x.v});
   h+='<div class="dash2" style="margin-top:.6rem;align-items:stretch"><div class="box" style="min-width:0;container-type:inline-size"><div class="boxh"><span class="hname hbig">Left to spend</span><span class="hamt hbigamt">'+peso(rt)+'</span></div>';
   if(hasAl)h+='<div class="li lial"><span>Allowance</span><span class="'+(fv<-0.005?'neg':'')+'">'+peso(fv)+'</span></div>';
   if(rest.length)rest.forEach(function(x){
-    h+=x.it?'<div class="li"><span>'+esc(x.n)+' <small style="display:inline;opacity:.7">(recon item)</small></span><span style="display:flex;align-items:center;gap:.4rem"><button class="pmb" data-act="spendItem" data-id="'+x.it.id+'" aria-label="Move '+esc(x.n)+' back to its list">−</button>'+peso(x.v)+'</span></div>':li(x.n,x.v)});
+    h+=x.it?'<div class="li"><span>'+esc(x.n)+' <small style="display:inline;opacity:.7">(item to match)</small></span><span style="display:flex;align-items:center;gap:.4rem"><button class="pmb" data-act="spendItem" data-id="'+x.it.id+'" aria-label="Move '+esc(x.n)+' back to its list">−</button>'+peso(x.v)+'</span></div>':li(x.n,x.v)});
   else if(!hasAl)h+='<div class="li"><span>Nothing has a balance left</span></div>';
   h+=(savLines.length?'<small class="cap" style="white-space:normal;margin-top:.35rem">'+esc(savLines.join(", "))+' '+(savLines.length>1?"are":"is")+' in savings, not included.</small>':'')+'</div>';
   var L={from:[],to:[],off:[]};
   state.recon.forEach(function(it){
     var v=reconVal(p,it);if(Math.abs(v)<0.005||it.kind==="bank"||it.spend)return;
     var k=it.kind==="to"?"to":"from";
-    if(it.offset)L.off.push({it:it,n:it.name||"Unnamed",v:v,sub:k==="to"?"Funding":"Due from"});
+    if(it.offset)L.off.push({it:it,n:it.name||"Unnamed",v:v,sub:k==="to"?"Funding":"Owed to me"});
     else L[k].push({it:it,n:it.name||"Unnamed",v:v});
   });
   var owed=[];
   updCollect(p).forEach(function(e){var a=r2(r2(e.amt)-recvAll(e));if(a>0.005)owed.push({n:e.name||"Unnamed",v:a,sub:"Due "+(e.due?short(e.due):"not set")})});
-  L.from.forEach(function(x){if(ai&&ai.id===x.it.id)return;owed.push({n:x.n,v:-x.v,it:x.it,sub:"Due from"})});
+  L.from.forEach(function(x){if(ai&&ai.id===x.it.id)return;owed.push({n:x.n,v:-x.v,it:x.it,sub:"Owed to me"})});
   dueFrom().forEach(function(x){owed.push({n:x.who,v:x.amt,sub:"From Spend"})});
   var ot=0;owed.forEach(function(x){ot+=x.v});
   h+='<div class="box" style="min-width:0;container-type:inline-size"><div class="boxh"><span class="hname hbig">Collectibles</span><span class="hamt hbigamt">'+peso(r2(ot))+'</span></div>';
   if(!owed.length)h+='<div class="li"><span>Nothing is owed to you right now</span></div>';
   owed.forEach(function(x){
     h+='<div class="li" style="flex-wrap:wrap"><span>'+esc(x.n)+'<small style="display:block;opacity:.7;white-space:normal">'+x.sub+'</small></span><span style="margin-left:auto">'+peso(x.v)+'</span>'+
-       (x.it?'<span style="flex-basis:100%;display:flex;gap:.35rem;justify-content:flex-end"><button class="pmb" data-act="spendItem" data-id="'+x.it.id+'" aria-label="Add '+esc(x.n)+' to Left to spend">+</button><button class="btn ghost small" data-act="offset" data-id="'+x.it.id+'" aria-label="Offset, '+esc(x.n)+'">Offset</button></span>':'')+'</div>';
+       (x.it?'<span style="flex-basis:100%;display:flex;gap:.35rem;justify-content:flex-end"><button class="pmb" data-act="spendItem" data-id="'+x.it.id+'" aria-label="Add '+esc(x.n)+' to Left to spend">+</button><button class="btn ghost small" data-act="offset" data-id="'+x.it.id+'" aria-label="Set aside, '+esc(x.n)+'">Set aside</button></span>':'')+'</div>';
   });
   h+='<small class="cap" style="white-space:normal;margin-top:.35rem">Amounts owed to you.</small></div></div>';
   /* Collapsible sections */
@@ -1199,7 +1199,7 @@ function renderHome(){
     h+='<h2 class="band one '+cls+'" data-key="'+title+'"><span class="hname">'+title+'</span><span class="hamt">'+peso(t)+'</span></h2><div class="card">';
     if(!list.length){h+='<div class="row"><div class="lbl"><small>'+empty+'</small></div></div></div>';return}
     list.forEach(function(x){
-      h+='<div class="row"><div class="lbl">'+esc(x.n)+(x.sub?'<small>'+x.sub+'</small>':'')+'</div>'+(x.it&&btn==="Offset"?'<button class="pmb" data-act="spendItem" data-id="'+x.it.id+'" aria-label="Add '+esc(x.n)+' to Left to spend">+</button>':'')+'<div class="val">'+peso(x.v)+'</div>'+
+      h+='<div class="row"><div class="lbl">'+esc(x.n)+(x.sub?'<small>'+x.sub+'</small>':'')+'</div>'+(x.it&&btn==="Set aside"?'<button class="pmb" data-act="spendItem" data-id="'+x.it.id+'" aria-label="Add '+esc(x.n)+' to Left to spend">+</button>':'')+'<div class="val">'+peso(x.v)+'</div>'+
          (x.it?'<button class="btn ghost small" data-act="offset" data-id="'+x.it.id+'" aria-label="'+btn+', '+esc(x.n)+'">'+btn+'</button>':'')+'</div>';
     });
     h+='<div class="row total"><div class="lbl">'+totLabel+'</div><div class="val">'+peso(t)+'</div></div></div>';
@@ -1225,8 +1225,8 @@ function renderHome(){
        '<div class="row"><div class="lbl">Less: Appropriated Fund still due<small>Not yet collected</small></div><div class="val">'+peso(-due)+'</div></div>'+
        '<div class="row total"><div class="lbl">Net Appropriated Fund<small>Should be in the bank now</small></div><div class="val">'+peso(r2(fund-due))+'</div></div></div>';
   }
-  sect("Fundings","c-income",L.to,"No fundings right now.","Total fundings","Offset");
-  sect("Offsetting","c-bal",L.off,"Nothing set aside as offsetting. Tap Offset on a due from or funding item to move it here.","Net of offsetting","Return");
+  sect("Fundings","c-income",L.to,"No fundings right now.","Total fundings","Set aside");
+  sect("Set aside","c-bal",L.off,"Nothing set aside yet. Tap Set aside on an owed-to-me or funding item to move it here.","Net of set aside","Return");
   var any=false,nets=[],bank=0,bh="";
   if(bp)state.accounts.forEach(function(ac){
     if(sids[ac.id])return;
@@ -1237,7 +1237,7 @@ function renderHome(){
   h+='<h2 class="band one c-recon" data-key="banks"><span class="hname">Bank balances</span><span class="hamt">'+peso(r2(bank))+'</span></h2><div class="card">'+(any?bh:'<div class="row"><div class="lbl"><small>None entered yet</small></div></div>')+
      '<div class="row total"><div class="lbl">Total<small>'+(nets.length?'Net of Min. Bal. ':'')+(ga?'Excludes savings: '+esc(snames)+'.':'')+'</small></div><div class="val">'+peso(r2(bank))+'</div></div></div>';
   var when=bp&&bp.actualAt?new Date(bp.actualAt).toLocaleString("en-PH",{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"}):"";
-  h+='<p class="hint" style="margin-top:1rem">'+(bp?("Bank balances last updated "+(when||"before this was tracked")+(bp!==p?", in the "+esc(labelOf(bp))+" cutoff":"")+"."):"Bank balances not entered yet. Add them in the Bank tab.")+'</p>';
+  h+='<p class="hint" style="margin-top:1rem">'+(bp?("Bank balances last updated "+(when||"before this was tracked")+(bp!==p?", in the "+esc(labelOf(bp))+" sahod":"")+"."):"Bank balances not entered yet. Add them in the Bank tab.")+'</p>';
   h+='<div class="acts" style="display:flex;gap:.5rem;margin-top:.5rem"><button class="btn" data-tab="spend">Record a transaction</button><button class="btn ghost" data-tab="bank">Update bank balances</button></div>';
   return h;
 }
@@ -1381,19 +1381,19 @@ function renderCollect(){
   h+='</div>';
   if(early.length)h+='<h2 class="band c-recon" data-key="overdue">Still unpaid from earlier payrolls</h2><div class="card">'+rows(early)+'<div class="row total"><div class="lbl">Total unpaid</div><div class="val">'+peso(etot)+'</div></div></div>';
   if(done.length)h+='<h2 class="band c-bal" data-key="collected">Collected</h2><div class="card">'+rows(done.slice().reverse())+'</div>';
-  h+='<h2>Recon item filled automatically</h2><p class="hint">Everything collectible up to each cutoff, less what you had received by then, is filled into this recon item as a due from. It includes collections due within that payroll and any counted in a payroll. It goes down as you record what you receive.</p><div class="card"><div class="setrow"><div class="line"><select data-k="arItem" aria-label="Recon item filled automatically"><option value="none"'+(ai?"":" selected")+'>None, I will enter it myself</option>'+
+  h+='<h2>Item to match, filled automatically</h2><p class="hint">Everything collectible up to each sahod, less what you had received by then, is filled into this item to match as money owed to you. It includes collections due within that payroll and any counted in a payroll. It goes down as you record what you receive.</p><div class="card"><div class="setrow"><div class="line"><select data-k="arItem" aria-label="Item to match, filled automatically"><option value="none"'+(ai?"":" selected")+'>None, I will enter it myself</option>'+
      state.recon.filter(function(x){return x.kind!=="bank"}).map(function(x){return '<option value="'+x.id+'"'+(ai&&ai.id===x.id?" selected":"")+'>'+esc(x.name||"Unnamed")+'</option>'}).join("")+'</select></div></div></div>';
   return h+sh;
 }
 function renderBank(){
   var p=state.periods.filter(function(x){return x.id===state.active})[0]||cur();
-  if(!p)return emptyState("Start a cutoff to see what each account should hold.","Start a cutoff","togglePanel");
-  var h='<p class="hint">What each account should hold as of the '+esc(labelOf(p))+' cutoff, reconciled against the actual balances you enter here. Each account below shows the balance it holds. A check mark means its reconciliation ties. If it does not tie, the check figure shows by how much. Tap an account to see its breakdown.</p>';
+  if(!p)return emptyState("Start a sahod to see what each account should hold.","Start a sahod","togglePanel");
+  var h='<p class="hint">What each account should hold as of the '+esc(labelOf(p))+' sahod, checked against the actual balances you enter here. Each account below shows the balance it holds. A check mark means it matches. If it does not match, the check figure shows by how much. Tap an account to see its breakdown.</p>';
   state.bankDraft=state.bankDraft||{};
   var dv=function(a){return a.id in state.bankDraft?state.bankDraft[a.id]:(p.actual||{})[a.id]};
   var up=p.actual&&Object.keys(p.actual).length,upAt=p.actualAt?new Date(p.actualAt).toLocaleString("en-PH",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}):"";
   var dirty=state.accounts.some(function(a){return r2(dv(a))!==r2((p.actual||{})[a.id])});
-  h+='<h2 class="band c-recon" data-key="actuals">Bank balances</h2><p class="hint">Type what each account holds now, as the bank shows it, then tap Upload to send them to the current cutoff. The recon below uses only uploaded balances. Tick Has Min. Bal for an account that must keep a minimum.</p><div class="card">';
+  h+='<h2 class="band c-recon" data-key="actuals">Bank balances</h2><p class="hint">Type what each account holds now, as the bank shows it, then tap Upload to send them to the current sahod. The bank check below uses only uploaded balances. Tick Has Min. Bal for an account that must keep a minimum.</p><div class="card">';
   state.accounts.forEach(function(a){
     var on=a.minOn||r2(a.min)>0;
     h+='<div class="row"><div class="lbl">'+esc(a.name||"Unnamed")+(a.type==="card"?" owed":"")+
@@ -1412,7 +1412,7 @@ function renderBank(){
     var tot=0;list.forEach(function(c){tot+=endBal(p,c)});tot=r2(tot);gShould+=tot;
     var adj=0;items.forEach(function(x){adj+=x.v});
     var vr=r2(tot-act+adj-au-ad);gVar+=vr;
-    h+='<h2 class="band c-budget" data-key="'+key+'"><span class="hname">'+esc(title)+'</span>'+(Math.abs(act)<0.005?'':'<span class="hamt">'+(Math.abs(vr)<0.005?'<span style="color:var(--ok)" role="img" aria-label="Reconciled">\u2713 </span>'+peso(act):peso(act)+'<small style="'+vcol(vr)+'">Check '+peso(vr)+'</small>')+'</span>')+'</h2><div class="card">';
+    h+='<h2 class="band c-budget" data-key="'+key+'"><span class="hname">'+esc(title)+'</span>'+(Math.abs(act)<0.005?'':'<span class="hamt">'+(Math.abs(vr)<0.005?'<span style="color:var(--ok)" role="img" aria-label="Matched">\u2713 </span>'+peso(act):peso(act)+'<small style="'+vcol(vr)+'">Check '+peso(vr)+'</small>')+'</span>')+'</h2><div class="card">';
     if(!list.length)h+='<div class="row"><div class="lbl"><small>No budget is assigned here.</small></div></div>';
     list.forEach(function(c){var v=endBal(p,c);h+='<div class="row"><div class="lbl">'+esc(c.name||"Unnamed")+'<small>'+esc(c.group||"Other")+'</small></div><div class="val" style="'+(v<-0.005?"color:var(--bad)":"")+'">'+peso(v)+'</div></div>'});
     h+='<div class="row total"><div class="lbl">Should hold</div><div class="val">'+peso(tot)+'</div></div>';
@@ -1422,9 +1422,9 @@ function renderBank(){
       if(Math.abs(x.v)<0.005)return;
       h+='<div class="row"><div class="lbl">'+esc(recName(x.it))+'<small>'+x.sub+'</small></div><div class="val">'+peso(x.v)+'</div></div>';
     });
-    if(Math.abs(au)>0.005)h+='<div class="row"><div class="lbl">Due from others, from Spend</div><div class="val">'+peso(-au)+'</div></div>';
+    if(Math.abs(au)>0.005)h+='<div class="row"><div class="lbl">Owed to me, from Spend</div><div class="val">'+peso(-au)+'</div></div>';
     if(Math.abs(ad)>0.005)h+='<div class="row"><div class="lbl">Funds still due<small>Appropriated and other allowance not yet collected</small></div><div class="val">'+peso(-ad)+'</div></div>';
-    h+='<div class="row total"><div class="lbl">Check (variance)</div><div class="val" style="'+vcol(vr)+'">'+peso(vr)+'</div></div></div>';
+    h+='<div class="row total"><div class="lbl">Check (unexplained difference)</div><div class="val" style="'+vcol(vr)+'">'+peso(vr)+'</div></div></div>';
   };
   state.accounts.forEach(function(a){
     var v=r2((p.actual||{})[a.id]),act=v?(a.type==="card"?-v:r2(v-r2(a.min))):0;
@@ -1437,7 +1437,7 @@ function renderBank(){
   if(loose.length||Math.abs(lau)>0.005||Math.abs(lad)>0.005||litems.some(function(x){return Math.abs(x.v)>0.005}))block("acct-none","No account set",loose,0,litems,r2(lau),r2(lad));
   gVar=r2(gVar);
   h+='<div class="card" style="margin-top:1.25rem"><div class="row grand"><div class="lbl">All accounts should hold</div><div class="val">'+peso(gShould)+'</div></div>'+
-     '<div class="row total"><div class="lbl">Total variance, same as Roll</div><div class="val" style="'+vcol(gVar)+'">'+peso(gVar)+'</div></div></div>';
+     '<div class="row total"><div class="lbl">Total unexplained difference, same as Money check</div><div class="val" style="'+vcol(gVar)+'">'+peso(gVar)+'</div></div></div>';
   return h;
 }
 function setRow(coll,it,second){
@@ -1459,10 +1459,10 @@ function updCollect(p){
 }
 function renderUpdate(){
   var p=state.periods.filter(function(x){return x.id===state.active})[0]||cur();
-  if(!p)return emptyState("Start a cutoff before updating.","Start a cutoff","togglePanel");
-  var h='<p class="hint">Your one place to update the '+esc(labelOf(p))+' cutoff, step by step: bank balances, spending, collections, recon items, then the bank offset.</p>';
-  if(p.locked)return h+'<div class="card"><div class="row"><div class="lbl">The '+esc(labelOf(p))+' has a Period lock, so it can’t be updated. Unlock it, or tick another cutoff as Current.</div></div></div>';
-  var S=upd.step,ttl=["Bank balances","Allocate the movement","Collections","Recon items","Bank offset"];
+  if(!p)return emptyState("Start a sahod before updating.","Start a sahod","togglePanel");
+  var h='<p class="hint">Your one place to update the '+esc(labelOf(p))+' sahod, step by step: bank balances, spending, collections, items to match, then the bank transfer.</p>';
+  if(p.locked)return h+'<div class="card"><div class="row"><div class="lbl">The '+esc(labelOf(p))+' has a Period lock, so it can’t be updated. Unlock it, or tick another sahod as Current.</div></div></div>';
+  var S=upd.step,ttl=["Bank balances","Assign the change","Collections","Items to match","Bank transfer"];
   var head=function(n){
     var st=S>n?(upd.sum[n]||"Done"):S===n?"":"";
     return '<h2 class="band '+["c-recon","c-used","c-income","c-recon","c-bal"][n-1]+'" style="'+(S<n?"opacity:.45":"")+'"><span class="hname">'+n+'. '+ttl[n-1]+'</span>'+(S>n?'<span class="hamt" style="margin-left:auto;padding-left:.5rem"><span style="color:var(--ok)" aria-hidden="true">✓ </span>'+esc(st)+'</span>':'')+'</h2>';
@@ -1488,21 +1488,21 @@ function renderUpdate(){
   if(S===2){
     var mv=upd.moved,at=updAllocTot(),rem=r2(mv-at);
     h+='<div class="card"><div class="row"><div class="lbl">Previous total</div><div class="val">'+peso(upd.prev)+'</div></div><div class="row"><div class="lbl">New total</div><div class="val">'+peso(upd.now)+'</div></div>'+
-       '<div class="row total"><div class="lbl">Movement to allocate<small>'+(mv>=0?"Decrease in your banks":"Increase in your banks")+'</small></div><div class="val">'+peso(mv)+'</div></div></div>';
-    h+='<p class="hint">Allocate the movement to the lines that still have a balance. What you type is added to each line’s Used in the Spend tab. You can type a calculation like 500+250.</p><div class="card">';
+       '<div class="row total"><div class="lbl">Change to assign<small>'+(mv>=0?"Decrease in your banks":"Increase in your banks")+'</small></div><div class="val">'+peso(mv)+'</div></div></div>';
+    h+='<p class="hint">Assign the change to the lines that still have a balance. What you type is added to each line’s Used in the Spend tab. You can type a calculation like 500+250.</p><div class="card">';
     var lines=balCats().filter(function(c){return endBal(p,c)>0.005});
     if(!lines.length)h+='<div class="row"><div class="lbl"><small>No line has a balance left.</small></div></div>';
     lines.forEach(function(c){
       h+='<div class="row"><div class="lbl">'+esc(c.ap?fundLabel(c):(c.name||"Unnamed"))+'<small>Balance '+peso(endBal(p,c))+'</small></div><input class="amt" inputmode="text" enterkeyhint="done" autocomplete="off" data-ua="'+c.id+'" value="'+esc(upd.alloc[c.id]||"")+'" placeholder="0.00" aria-label="Amount used from '+esc(c.name||"")+'"></div>';
     });
-    h+='<div class="row total"><div class="lbl">Allocated</div><div class="val" id="updAl">'+peso(at)+'</div></div><div class="row total"><div class="lbl">Not yet allocated</div><div class="val" id="updRem" style="'+(Math.abs(rem)<0.005?"color:var(--ok)":"color:var(--bad)")+'">'+peso(rem)+'</div></div></div>';
-    h+='<p class="hint">If everything is allocated, Proceed takes you to the bank offset. If not, it takes you to collections and recon items.</p>'+go("updAlloc");
+    h+='<div class="row total"><div class="lbl">Assigned</div><div class="val" id="updAl">'+peso(at)+'</div></div><div class="row total"><div class="lbl">Not yet assigned</div><div class="val" id="updRem" style="'+(Math.abs(rem)<0.005?"color:var(--ok)":"color:var(--bad)")+'">'+peso(rem)+'</div></div></div>';
+    h+='<p class="hint">If everything is assigned, Proceed takes you to the bank transfer. If not, it takes you to collections and items to match.</p>'+go("updAlloc");
   }
   /* 3 */
   h+=head(3);
   if(S===3){
     var cl=updCollect(p);
-    h+='<p class="hint">Collections due up to this cutoff that are not fully received. Tick one received in full, or type what you have received so far.</p><div class="card">';
+    h+='<p class="hint">Collections due up to this sahod that are not fully received. Tick one received in full, or type what you have received so far.</p><div class="card">';
     if(!cl.length)h+='<div class="row"><div class="lbl"><small>Nothing to collect.</small></div></div>';
     cl.forEach(function(e){
       h+='<div class="row"><label class="curchk"><input type="checkbox" data-got="'+e.id+'" aria-label="Got '+esc(e.name||"")+'"></label><div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+'</small></div>'+
@@ -1514,31 +1514,31 @@ function renderUpdate(){
   h+=head(4);
   if(S===4){
     var ai=arItem(),items=state.recon.filter(function(it){return it.kind!=="bank"&&!(ai&&ai.id===it.id)});
-    h+='<p class="hint">Update the recon items until the remaining variance is zero. Use ± for minus. Collections are already counted from step 3.</p><div class="card">';
-    if(!items.length)h+='<div class="row"><div class="lbl"><small>No recon items to update.</small></div></div>';
+    h+='<p class="hint">Update the items to match until the remaining unexplained difference is zero. Use ± for minus. Collections are already counted from step 3.</p><div class="card">';
+    if(!items.length)h+='<div class="row"><div class="lbl"><small>No items to match to update.</small></div></div>';
     items.forEach(function(it){
       var key="rec:"+p.id+":"+it.id;
-      h+='<div class="row"><div class="lbl">'+esc(recLabel(it))+'</div><span class="pm"><button class="sign" data-sign="'+key+'" aria-label="Switch between plus and minus for '+esc(it.name||"")+'">±</button>'+amtInput(key,reconVal(p,it),it.name||"Recon item")+'</span></div>';
+      h+='<div class="row"><div class="lbl">'+esc(recLabel(it))+'</div><span class="pm"><button class="sign" data-sign="'+key+'" aria-label="Switch between plus and minus for '+esc(it.name||"")+'">±</button>'+amtInput(key,reconVal(p,it),it.name||"Item to match")+'</span></div>';
     });
     var vz=Math.abs(rc(p).variance)<0.005;
-    h+='<div class="row total"><div class="lbl">Remaining variance</div><div class="val"><span data-rc="'+p.id+':variance"></span></div></div></div>'+go("updTo5","Proceed",!vz,"updRecGo");
+    h+='<div class="row total"><div class="lbl">Remaining unexplained difference</div><div class="val"><span data-rc="'+p.id+':variance"></span></div></div></div>'+go("updTo5","Proceed",!vz,"updRecGo");
   }
   /* 5 */
   h+=head(5);
   if(S===5){
     var offs=state.recon.filter(function(it){return it.kind==="bank"&&Math.abs(reconVal(p,it))>0.005});
     var allok=state.accounts.every(function(a){return Math.abs(bankCheck(p,a.id))<0.005});
-    h+='<p class="hint">Auto balances every bank against the others, so each bank\u2019s check reads zero. It reuses your Bank Offsets and adds new ones when needed. Anything left over is a real variance.</p><div class="card">';
+    h+='<p class="hint">Auto balances every bank against the others, so each bank\u2019s check reads zero. It reuses your Bank transfers and adds new ones when needed. Anything left over is a real unexplained difference.</p><div class="card">';
     state.accounts.forEach(function(a){var c=bankCheck(p,a.id),act0=r2((p.actual||{})[a.id]);if(Math.abs(c)<0.005&&!act0)return;
       h+='<div class="row"><div class="lbl">'+esc(a.name||"Unnamed")+' check</div><div class="val" style="'+(Math.abs(c)<0.005?"color:var(--ok)":"color:var(--bad)")+'">'+(Math.abs(c)<0.005?"\u2713 ":"")+peso(c)+'</div></div>'});
     h+='<div class="acts" style="display:flex;justify-content:flex-end;padding:.4rem 0 .5rem"><button class="btn'+(allok?' ghost':'')+' small" data-act="autoOffset" data-pid="'+p.id+'">Auto-balance all banks</button></div>';
-    if(offs.length){h+='<div class="row total"><div class="lbl">Bank Offsets</div><div class="val"></div></div>';offs.forEach(function(it){h+='<div class="row"><div class="lbl"><small>'+esc(recName(it))+'</small></div><div class="val">'+peso(reconVal(p,it))+'</div></div>'})}
+    if(offs.length){h+='<div class="row total"><div class="lbl">Bank transfers</div><div class="val"></div></div>';offs.forEach(function(it){h+='<div class="row"><div class="lbl"><small>'+esc(recName(it))+'</small></div><div class="val">'+peso(reconVal(p,it))+'</div></div>'})}
     h+='</div>'+go("updFinish","Done");
   }
   if(S===6){
     var o=rc(p);
     h+='<div class="card" style="margin-top:1rem"><div class="row grand"><div class="lbl">All updated<small>The '+esc(labelOf(p))+' is up to date.</small></div><div class="val" style="color:var(--ok)">✓</div></div>'+
-       '<div class="row"><div class="lbl">Variance</div><div class="val" style="'+(Math.abs(o.variance)<0.005?"color:var(--ok)":"color:var(--bad)")+'">'+peso(o.variance)+'</div></div></div>'+
+       '<div class="row"><div class="lbl">Unexplained difference</div><div class="val" style="'+(Math.abs(o.variance)<0.005?"color:var(--ok)":"color:var(--bad)")+'">'+peso(o.variance)+'</div></div></div>'+
        '<div class="acts" style="display:flex;justify-content:flex-end;margin-top:.75rem"><button class="btn ghost" data-act="updAgain">Start a new update</button></div>';
   }
   return h;
@@ -1558,7 +1558,7 @@ function renderSetup(){
     acc+='</div>';
     if(sbUser)acc+='<p class="hint">Delete account removes your login and any budget saved to it online. '+(premium?'':'Your budget on this phone stays. ')+'This cannot be undone. <a href="privacy.html">Privacy policy</a></p><button class="btn danger" data-act="deleteAccount">Delete my account</button>';
   }
-  var h=acc+'<h2 class="sec band c-budget">Budget</h2><p class="hint">Payroll, budget allocation and the budget breakdown for each cutoff, plus templates.</p><div class="acts" style="display:flex;gap:.5rem;margin-bottom:.5rem"><button class="btn" data-tab="budget">Open Budget and breakdown</button></div>'+
+  var h=acc+'<h2 class="sec band c-budget">Budget</h2><p class="hint">Payroll, budget plan and the budget breakdown for each sahod, plus templates.</p><div class="acts" style="display:flex;gap:.5rem;margin-bottom:.5rem"><button class="btn" data-tab="budget">Open Budget and breakdown</button></div>'+
     '<h2 class="sec band c-budget">Display</h2><div class="card">'+
     '<div class="row"><div class="lbl">Text size</div><select data-k="uiFont" aria-label="Text size">'+opt("s","Small",ui.font)+opt("m","Medium",ui.font||"m")+opt("l","Large",ui.font)+opt("xl","Extra large",ui.font)+'</select></div>'+
     '<div class="row"><div class="lbl">Color scheme</div><select data-k="uiTheme" aria-label="Color scheme">'+opt("auto","Match device",ui.theme||"auto")+opt("light","White",ui.theme)+opt("dark","Black",ui.theme)+'</select></div></div>'+
@@ -1569,7 +1569,7 @@ function renderSetup(){
      '<div class="row"><div class="lbl">Emergency fund, full goal<small>For example 6 months of expenses</small></div>'+amtInput("goal:ef2",G0.ef2,"Emergency fund, full goal")+'</div>'+
      '<div class="row"><div class="lbl">Travel fund<small>Leave blank if you are not saving for travel</small></div>'+amtInput("goal:travel",G0.travel,"Travel fund")+'</div>'+
      '<div class="row total"><div class="lbl">First target<small>Full target '+peso(r2(Math.max(G0.ef2,G0.ef1)+G0.travel))+'</small></div><div class="val">'+peso(r2(G0.ef1+G0.travel))+'</div></div></div>';
-  h+='<h2>Accounts</h2><p class="hint">Banks, cash on hand and credit cards. Min. Bal is taken off the actual balance in the recon. You can have up to 10 bank accounts, plus cash on hand and credit cards.</p><div class="card">';
+  h+='<h2>Accounts</h2><p class="hint">Banks, cash on hand and credit cards. Min. Bal is taken off the actual balance in the bank check. You can have up to 10 bank accounts, plus cash on hand and credit cards.</p><div class="card">';
   state.accounts.forEach(function(a){
     var t=["bank","cash","card"].map(function(v){return '<option value="'+v+'"'+(a.type===v?" selected":"")+'>'+{bank:"Bank account",cash:"Cash on hand",card:"Credit card"}[v]+'</option>'}).join("");
     h+=setRow("accounts",a,'<select data-k="acctType:'+a.id+'" aria-label="Account type">'+t+'</select>'+'<input class="amt" inputmode="decimal" data-k="acctMin:'+a.id+'" value="'+(r2(a.min)?fmt(a.min):"")+'" placeholder="Min. Bal" aria-label="Min. Bal" style="width:7rem">');
@@ -1594,11 +1594,11 @@ function renderSetup(){
   h+='<button class="add" data-act="add" data-coll="dedLines">Add deduction</button></div>';
 
 
-  h+='<h2>Payroll days</h2><p class="hint">The two days of the month your salary is credited. New cutoffs use these.</p><div class="card"><div class="row"><div class="lbl">First payroll day</div><input class="amt" inputmode="numeric" data-k="payDay:0" value="'+esc(state.payDays[0])+'" aria-label="First payroll day"></div>'+
+  h+='<h2>Payroll days</h2><p class="hint">The two days of the month your salary is credited. New sahods use these.</p><div class="card"><div class="row"><div class="lbl">First payroll day</div><input class="amt" inputmode="numeric" data-k="payDay:0" value="'+esc(state.payDays[0])+'" aria-label="First payroll day"></div>'+
      '<div class="row"><div class="lbl">Second payroll day</div><input class="amt" inputmode="numeric" data-k="payDay:1" value="'+esc(state.payDays[1])+'" aria-label="Second payroll day"></div></div>';
-  h+='<h2>Template for each cutoff</h2><p class="hint">'+(state.templates.length?"New cutoffs start with the template you pick here. You can still change the numbers after.":"Save a template from the Budget tab first, then pick one for each cutoff here.")+'</p><div class="card">'+
-     '<div class="setrow"><div class="line"><span style="flex:1">First cutoff, day '+esc(state.payDays[0])+'</span>'+tplSelect(0)+'</div></div>'+
-     '<div class="setrow"><div class="line"><span style="flex:1">Second cutoff, day '+esc(state.payDays[1])+'</span>'+tplSelect(1)+'</div></div></div>';
+  h+='<h2>Template for each sahod</h2><p class="hint">'+(state.templates.length?"New sahods start with the template you pick here. You can still change the numbers after.":"Save a template from the Budget tab first, then pick one for each sahod here.")+'</p><div class="card">'+
+     '<div class="setrow"><div class="line"><span style="flex:1">First sahod, day '+esc(state.payDays[0])+'</span>'+tplSelect(0)+'</div></div>'+
+     '<div class="setrow"><div class="line"><span style="flex:1">Second sahod, day '+esc(state.payDays[1])+'</span>'+tplSelect(1)+'</div></div></div>';
 
   h+='<h2>Saved templates</h2><p class="hint">Rename or delete your payroll and budget templates. To change a template\u2019s amounts, go to the Budget tab, pick it under Templates and tap Edit.</p><div class="card">';
   if(!state.templates.length)h+='<div class="row"><div class="lbl"><small>No templates saved yet.</small></div></div>';
@@ -1612,11 +1612,11 @@ function renderSetup(){
 
   h+='<h2 class="sec band c-income">About</h2><div class="card"><div class="row"><div class="lbl">Budgetarian version '+APP_VERSION+'<small>'+(updReady?'Version '+esc(newVer)+' is ready.':'Updates are free. Your budget is kept when you update.')+'</small></div>'+(updReady?'<button class="btn small" data-act="applyUpdate">Update now</button>':'<button class="btn ghost small" data-act="checkUpdate">Check for updates</button>')+'</div></div>';
   h+='<h2 class="sec band c-recon" style="margin-top:3rem">Clear or erase</h2>'+
-     '<p class="hint">Clear numbers only empties the amounts in every cutoff: payroll, budget, used, bank balances and recon amounts. Your cutoffs, items and templates stay. Locked cutoffs are skipped.</p>'+
+     '<p class="hint">Clear numbers only empties the amounts in every sahod: payroll, budget, used, bank balances and amounts to match. Your sahods, items and templates stay. Locked sahods are skipped.</p>'+
      '<button class="btn danger" data-act="clearNumbers">Clear numbers only</button>'+
-     '<p class="hint" style="margin-top:1.25rem">Clear all entries removes every cutoff, transaction, bank balance and recon amount. Your accounts, categories, templates and display settings stay. Locked cutoffs are kept.</p>'+
+     '<p class="hint" style="margin-top:1.25rem">Clear all entries removes every sahod, transaction, bank balance and amount to match. Your accounts, categories, templates and display settings stay. Locked sahods are kept.</p>'+
      '<button class="btn danger" data-act="clearEntries">Clear all entries</button>'+
-     '<p class="hint" style="margin-top:1.25rem">Erase all data removes everything, including your setup, templates and locked cutoffs.</p>'+
+     '<p class="hint" style="margin-top:1.25rem">Erase all data removes everything, including your setup, templates and locked sahods.</p>'+
      '<button class="btn danger" data-act="reset">Erase all data</button>'+
      '<p class="hint">None of these can be undone. Save a backup file first if you might need the data again.</p>';
   return h;
@@ -1685,8 +1685,8 @@ function render(){
   applyUi();
   if(syncIncome())touch();
   var p=cur();
-  $("#pLabel").textContent=p?labelOf(p):"No cutoff yet";
-  $("#pSub").textContent=p?(p.id===state.active?"Current cutoff. ":"")+coverOf(p)+". Tap to change.":"Tap to start a cutoff";
+  $("#pLabel").textContent=p?labelOf(p):"No sahod yet";
+  $("#pSub").textContent=p?(p.id===state.active?"Current sahod. ":"")+coverOf(p)+". Tap to change.":"Tap to start a sahod";
   document.querySelectorAll(".tabs button[data-tab]").forEach(function(b){if(b.dataset.tab===tab||(tab==="budget"&&b.dataset.tab==="setup"))b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
   renderPanel();
   $("#view").innerHTML=tab==="home"?renderHome():tab==="update"?renderUpdate():tab==="budget"?renderBoth(target()):tab==="plan"?renderPlan():tab==="spend"?renderSpend(state.periods.filter(function(x){return x.id===state.active})[0]||p):tab==="income"?renderCollect():tab==="bank"?renderBank():renderSetup();
@@ -1710,7 +1710,7 @@ document.addEventListener("click",function(e){
   var sg=e.target.closest("[data-sign]");
   if(sg){
     var si=document.querySelector('[data-k="'+sg.dataset.sign+'"]');
-    if(si&&si.disabled){setStatus("That cutoff is locked");return}
+    if(si&&si.disabled){setStatus("That sahod is locked");return}
     if(si){var nv=-parse(si.value);si.value=nv?fmt(nv):"";if(apply(si)){touch();refresh()}}
     return;
   }
@@ -1730,7 +1730,7 @@ document.addEventListener("click",function(e){
   if(act==="newPeriod"){
     var s=$("#nPay").value;
     if(!s){setStatus("Pick a payroll date");return}
-    if(state.periods.some(function(x){return (x.pay||x.start)===s})){setStatus("That cutoff already exists");return}
+    if(state.periods.some(function(x){return (x.pay||x.start)===s})){setStatus("That sahod already exists");return}
     var cv=coverageFor(s),en=cv.end;
     var prev=state.periods[state.periods.length-1];
     var p={id:uidGen(),pay:s,start:cv.start,end:en,gross:0,grossAcct:"",ded:{},inflow:{},budget:{}};
@@ -1754,9 +1754,9 @@ document.addEventListener("click",function(e){
     if(!cur())return;
     if(!(amt>0)){setStatus("Enter an amount");return}
     var tx={id:uidGen(),pid:g("txPid")||cur().id,type:txType,date:g("txDate")||todayIso(),amt:amt,acct:g("txAcct"),note:g("txNote").trim()};
-    if(state.periods.some(function(x){return x.id===tx.pid&&x.locked})){setStatus("That cutoff is locked");return}
+    if(state.periods.some(function(x){return x.id===tx.pid&&x.locked})){setStatus("That sahod is locked");return}
     var apx=state.periods.filter(function(x){return x.id===state.active})[0],tpx=state.periods.filter(function(x){return x.id===tx.pid})[0];
-    if(apx&&tpx&&(tpx.pay||tpx.start)>(apx.pay||apx.start)){setStatus("Spending can only go to the current or an earlier cutoff");return}
+    if(apx&&tpx&&(tpx.pay||tpx.start)>(apx.pay||apx.start)){setStatus("Spending can only go to the current or an earlier sahod");return}
     if(!tx.acct){setStatus("Choose an account");return}
     if(txType==="exp"){
       tx.catId=g("txCat");if(!tx.catId){setStatus("Choose a category");return}
@@ -1787,7 +1787,7 @@ document.addEventListener("click",function(e){
     if(lp){
       lp.locked=!lp.locked;
       if(lp.locked){lp.recon=lp.recon||{};state.recon.forEach(function(it){if(lp.recon[it.id]===undefined)lp.recon[it.id]=reconVal(lp,it)});lp.reconCopied=true}
-      touch();render();setStatus(lp.locked?"Cutoff locked":"Cutoff unlocked");
+      touch();render();setStatus(lp.locked?"Sahod locked":"Sahod unlocked");
     }
     return;
   }
@@ -1851,20 +1851,20 @@ document.addEventListener("click",function(e){
         state.tx.push({id:uidGen(),pid:up.id,type:"exp",date:todayIso(),amt:vals[k],acct:cat?cat.accountId||"":"",catId:k,who:"",charged:0,note:"From Update"});tot+=vals[k];
       });
       tot=r2(tot);var rem=r2(upd.moved-tot);
-      upd.sum[2]="Allocated "+peso(tot);
+      upd.sum[2]="Assigned "+peso(tot);
       if(Math.abs(rem)<0.005){upd.sum[3]="Skipped";upd.sum[4]="Skipped";upd.step=5}else upd.step=3;
       touch();render();window.scrollTo(0,0);return;
     }
     if(act==="updTo4"){upd.step=4;render();window.scrollTo(0,0);return}
-    if(act==="updTo5"){if(Math.abs(rc(up).variance)>=0.005){setStatus("Bring the variance to zero first");return}upd.step=5;render();window.scrollTo(0,0);return}
+    if(act==="updTo5"){if(Math.abs(rc(up).variance)>=0.005){setStatus("Bring the unexplained difference to zero first");return}upd.step=5;render();window.scrollTo(0,0);return}
     if(act==="updFinish"){upd.step=6;render();window.scrollTo(0,0);setStatus("All updated");return}
   }
   if(act==="autoOffset"){
     var bp=state.periods.filter(function(x){return x.id===b.dataset.pid})[0];
     if(!bp)return;
-    if(bp.locked){setStatus("This cutoff is locked");return}
+    if(bp.locked){setStatus("This sahod is locked");return}
     var rs=autoBalance(bp);touch();render();
-    setStatus(Math.abs(rs.left)>0.005?"Banks balanced. "+fmt(rs.left)+" is a variance, not a bank difference":"All banks balanced");
+    setStatus(Math.abs(rs.left)>0.005?"Banks balanced. "+fmt(rs.left)+" is unexplained, not a bank difference":"All banks balanced");
     return;
   }
   if(act==="offset"){
@@ -1885,13 +1885,13 @@ document.addEventListener("click",function(e){
       tt.gross=dr.gross;tt.grossAcct=dr.grossAcct;tt.ded=clone(dr.ded);tt.budget=clone(dr.budget);tt.srcs=(dr.srcs||[]).slice();
       tplMiss=[];users.forEach(function(q){applyTpl(q,tt)});
       editTpl=null;tplDraft=null;touch();render();window.scrollTo(0,0);
-      setStatus("Template saved"+(users.length?", "+users.length+" cutoff"+(users.length>1?"s":"")+" updated":"")+(tplMiss.length?". No free collection for "+tplMiss.join(", "):""));tplMiss=[];
+      setStatus("Template saved"+(users.length?", "+users.length+" sahod"+(users.length>1?"s":"")+" updated":"")+(tplMiss.length?". No free collection for "+tplMiss.join(", "):""));tplMiss=[];
     }
     return;
   }
   if(act==="tplSave"){
     var pp=target(),nm=$("#tplName").value.trim();
-    if(!pp){setStatus("Start a cutoff first");return}
+    if(!pp){setStatus("Start a sahod first");return}
     if(!nm){setStatus("Name the template");$("#tplName").focus();return}
     var ex=state.templates.filter(function(t){return t.name.toLowerCase()===nm.toLowerCase()})[0];
     var body={gross:pp.gross,grossAcct:pp.grossAcct,ded:clone(pp.ded),budget:clone(pp.budget),srcs:Array.isArray(pp.srcs)?pp.srcs.slice():tplSrcs(pp)};
@@ -1903,8 +1903,8 @@ document.addEventListener("click",function(e){
     var tid=$("#tplPick").value,tp=state.templates.filter(function(t){return t.id===tid})[0];
     if(!tp){setStatus("Choose a template");return}
     if(act==="tplApply"){
-      if(!cur()){setStatus("Start a cutoff first");return}
-      if(cur().locked||cur().lockB){setStatus("That cutoff is locked");return}
+      if(!cur()){setStatus("Start a sahod first");return}
+      if(cur().locked||cur().lockB){setStatus("That sahod is locked");return}
       if(!confirmTap(b,"Tap again to replace amounts"))return;
       applyTpl(cur(),tp);touch();render();setStatus("Filled from "+tp.name);return;
     }else{
@@ -1915,8 +1915,8 @@ document.addEventListener("click",function(e){
   }
   if(act==="bankUpload"){
     var ucp=state.periods.filter(function(x){return x.id===state.active})[0]||cur();
-    if(!ucp){setStatus("Start a cutoff first");return}
-    if(ucp.locked){setStatus("The "+labelOf(ucp)+" is locked. Unlock it or tick another cutoff as Current.");return}
+    if(!ucp){setStatus("Start a sahod first");return}
+    if(ucp.locked){setStatus("The "+labelOf(ucp)+" is locked. Unlock it or tick another sahod as Current.");return}
     state.bankDraft=state.bankDraft||{};ucp.actual=ucp.actual||{};
     state.accounts.forEach(function(a){if(a.id in state.bankDraft)ucp.actual[a.id]=r2(state.bankDraft[a.id])});
     ucp.actualAt=Date.now();touch();render();setStatus("Uploaded to the "+labelOf(ucp));return;
@@ -1936,7 +1936,7 @@ document.addEventListener("click",function(e){
     if(coll==="cats"){it.group="";it.accountId=""}
     if(coll==="dedLines")it.group="other";
     if(coll==="income"){it.due=todayIso();it.amt=0;it.got=false}
-    if(coll==="recon"){it.kind=b.dataset.kind||"from";if(it.kind==="bank")it.name="Bank Offset"}
+    if(coll==="recon"){it.kind=b.dataset.kind||"from";if(it.kind==="bank")it.name="Bank transfer"}
     state[coll].push(it);touch();render();
     var inp=$('[data-k="name:'+coll+':'+it.id+'"]');if(inp)inp.focus();return;
   }
@@ -1945,7 +1945,7 @@ document.addEventListener("click",function(e){
     var lockHit=c==="periods"?state.periods.some(function(x){return x.id===id&&(x.locked||x.lockB)}):
       c==="tx"?state.tx.some(function(t){return t.id===id&&state.periods.some(function(x){return x.id===t.pid&&x.locked})}):false;
     if(c==="income"&&incPeriod(id)&&(incPeriod(id).locked||incPeriod(id).lockB))lockHit=true;
-    if(lockHit){setStatus("Unlock that cutoff first");return}
+    if(lockHit){setStatus("Unlock that sahod first");return}
     if(!confirmTap(b,"Tap again to delete"))return;
     state[c]=state[c].filter(function(x){return x.id!==id});
     if(c==="income")state.periods.forEach(function(q){q.inc=(q.inc||[]).filter(function(x){return x!==id})});
@@ -1978,7 +1978,7 @@ document.addEventListener("click",function(e){
 });
 function apply(el){
   var k=el.dataset.k;if(!k)return false;
-  if(lockedKey(k)){setStatus("That cutoff is locked");return false}
+  if(lockedKey(k)){setStatus("That sahod is locked");return false}
   var a=k.split(":"),p=target(),find=function(c,id){return state[c].filter(function(x){return x.id===id})[0]};
   if(a[0]==="goal"){state.goals=state.goals||{};state.goals[a[1]]=parse(el.value);return true}
   if(a[0]==="name"){var it=find(a[1],a[2]);if(it)it.name=el.value;return true}
@@ -2007,7 +2007,7 @@ function apply(el){
     setGot(re);return true;
   }
   if(a[0]==="incDue"){var ie=incById(a[1]);if(ie){ie.due=el.value;return true}return false}
-  if(a[0]==="incAmt"){var ia=incById(a[1]),iq=incPeriod(a[1]);if(iq&&(iq.locked||iq.lockB)){setStatus("That cutoff is locked");return false}if(ia){ia.amt=parse(el.value);return true}return false}
+  if(a[0]==="incAmt"){var ia=incById(a[1]),iq=incPeriod(a[1]);if(iq&&(iq.locked||iq.lockB)){setStatus("That sahod is locked");return false}if(ia){ia.amt=parse(el.value);return true}return false}
   if(a[0]==="bal"){state.bankDraft=state.bankDraft||{};state.bankDraft[a[1]]=parse(el.value);return true}
   if(a[0]==="srcEnd"){var se=state.incSrc.filter(function(x){return x.id===a[1]})[0];if(se){se.end=el.value;return true}return false}
   if(a[0]==="srcAcct"){var sa=state.incSrc.filter(function(x){return x.id===a[1]})[0];if(sa){sa.acct=el.value;return true}return false}
@@ -2117,7 +2117,7 @@ document.addEventListener("change",function(e){
   if(el.dataset&&el.dataset.plan&&el.value){
     var t=state.templates.filter(function(x){return x.id===el.value})[0];
     var tgt=periodFor(el.dataset.plan);
-    if(tgt&&(tgt.locked||tgt.lockB)){setStatus("That cutoff is locked");render();return}
+    if(tgt&&(tgt.locked||tgt.lockB)){setStatus("That sahod is locked");render();return}
     if(t){applyTpl(tgt||makePeriod(el.dataset.plan),t);if(!state.cur)state.cur=state.periods[0].id;touch();render();setStatus("Filled from "+t.name)}
     return;
   }
