@@ -215,6 +215,7 @@ h2.tog::after{content:"";flex:none;width:.55rem;height:.55rem;border-right:2px s
 h2.tog.shut::after{transform:rotate(-45deg);margin-bottom:0}
 h2.tog:not(.band){border-bottom:1px solid var(--line);padding-bottom:.4rem}
 .boxh{font-size:.88rem;font-weight:400;margin:0;display:grid;grid-template-columns:1fr auto;align-items:center;row-gap:.1rem}.boxh .hname{grid-column:1/-1}.dash2 .li{font-size:.84rem;gap:.35rem}.dash2 .li.lial{font-size:1.12rem;font-weight:700;padding:.5rem 0}.boxh .hamt.hbigamt{font-size:min(2.1rem,19cqi);line-height:1.1}.boxh .hname.hbig{text-align:center;font-size:1.05rem;font-weight:600;line-height:1.25;display:flex;align-items:center;justify-content:center}.boxh .hamt{justify-self:end;font-weight:700;font-size:1rem}.boxh{padding-bottom:.4rem;border-bottom:1px solid var(--line)}.dash3 .box.sahod{container-type:inline-size}.dash3 .box.sahod b{font-size:115cqi;line-height:.95;letter-spacing:-.03em}.dash3 .box.sahod b.two{font-size:66cqi}.dash3 .box.donut svg{max-width:6.5rem}.dash2 .li>span:first-child{white-space:normal;overflow:visible;text-overflow:clip;min-width:0;overflow-wrap:break-word;-webkit-hyphens:auto;hyphens:auto}.dash2 .li>span:last-child{flex:none}h2.boxh .hamt{font-weight:700;font-size:1rem}.auth{position:fixed;inset:0;z-index:50;background:var(--paper);overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:max(2rem,env(safe-area-inset-top)) 1rem 2rem}.auth[hidden]{display:none}.authcard{width:100%;max-width:24rem;margin-top:2rem}.authcard h1{margin:.4rem 0 0;font-size:1.8rem}.authcard label{display:block;margin:.8rem 0 .3rem;font-weight:600}.authcard .txt{width:100%}.authlogo{width:72px;height:72px;border-radius:18px}.authmsg{padding:.6rem .8rem;border-radius:8px;background:var(--t-income);color:var(--c-income)}.authmsg.bad{background:var(--t-recon);color:var(--c-recon)}.linkbtn{background:none;border:0;color:var(--teal);font:inherit;text-decoration:underline;padding:0;cursor:pointer}body.authing{overflow:hidden}
+.instsheet{position:fixed;inset:0;z-index:45;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}.instsheet[hidden]{display:none}.instcard{background:var(--paper);width:100%;max-width:30rem;border-radius:18px 18px 0 0;padding:1.2rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom));box-shadow:0 -6px 24px rgba(0,0,0,.25)}.instcard .insthead{display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem}.instcard img{width:52px;height:52px;border-radius:13px}.instcard h3{margin:0;font-size:1.15rem}.instcard ol{margin:.6rem 0 1rem;padding-left:1.3rem;line-height:1.55}.instcard li{margin:.25rem 0}.instcard .ico{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:0 .35rem;font-weight:700}.instcard .instbtns{display:flex;gap:.5rem;flex-wrap:wrap}
 .updbanner{position:fixed;left:.75rem;right:.75rem;bottom:calc(4.6rem + env(safe-area-inset-bottom));z-index:40;background:var(--teal);color:#fff;border-radius:12px;padding:.6rem .7rem .6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem;box-shadow:0 6px 18px rgba(0,0,0,.25);font-size:.92rem}.updbanner .btn{background:#fff;color:var(--teal);border-color:#fff}.updbanner[hidden]{display:none}
 h2.boxh.shut{border-bottom:0;padding-bottom:0}
 .plan tbody[class] tr.grp{cursor:pointer}
@@ -349,7 +350,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.0";
+var APP_VERSION="1.0.1";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -419,6 +420,37 @@ if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostnam
 if(location.protocol!=="file:"){
   addEventListener("load",function(){setTimeout(function(){checkForUpdate(false)},1500);setInterval(function(){checkForUpdate(false)},3600000)});
   document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")checkForUpdate(false)});
+}
+/* ---------- "install this app" guide ---------- */
+var deferredInstall=null,INST_KEY="budgetarian-install-seen";
+addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstall=e;var b=document.querySelector("#instSheet [data-inst=native]");if(b)b.hidden=false});
+function isInstalled(){return (window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true}
+function instSteps(){
+  var ua=navigator.userAgent||"",ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1),android=/Android/.test(ua);
+  if(ios){
+    var inApp=/FBAN|FBAV|Instagram|Line\/|Messenger|TikTok/i.test(ua);
+    if(inApp)return '<li>Tap <b>⋯</b> (top or bottom corner) and choose <b>Open in Safari</b>.</li><li>In Safari, tap <span class="ico">Share ↑</span> at the bottom.</li><li>Scroll down and tap <b>Add to Home Screen</b>, then <b>Add</b>.</li>';
+    return '<li>Tap <span class="ico">Share ↑</span> at the bottom of Safari (on iPad: top right).</li><li>Scroll down and tap <b>Add to Home Screen</b>.</li><li>Tap <b>Add</b>. Budgetarian is now on your home screen.</li>';
+  }
+  if(android)return '<li>Tap the <span class="ico">⋮</span> menu at the top right of Chrome.</li><li>Tap <b>Install app</b> or <b>Add to Home screen</b>.</li><li>Tap <b>Install</b>. Budgetarian is now on your home screen.</li>';
+  return '<li>Open this page on your phone.</li><li>iPhone: Safari › Share › <b>Add to Home Screen</b>.</li><li>Android: Chrome ⋮ menu › <b>Install app</b>.</li>';
+}
+function showInstall(){
+  var el=$("#instSheet");if(!el){el=document.createElement("div");el.id="instSheet";el.className="instsheet";el.setAttribute("role","dialog");el.setAttribute("aria-label","Install Budgetarian");document.body.appendChild(el)}
+  el.innerHTML='<div class="instcard"><div class="insthead"><img src="icons/icon-192.png" alt=""><div><h3>Install Budgetarian</h3><div class="hint">Free. Opens full-screen, works offline, your data stays on your phone.</div></div></div><ol>'+instSteps()+'</ol><div class="instbtns"><button class="btn" data-inst="native"'+(deferredInstall?'':' hidden')+'>Install now</button><button class="btn ghost" data-inst="close">Maybe later</button></div></div>';
+  el.hidden=false;
+}
+function closeInstall(){var el=$("#instSheet");if(el)el.hidden=true;try{localStorage.setItem(INST_KEY,"1")}catch(e){}}
+document.addEventListener("click",function(e){
+  var t=e.target.closest&&e.target.closest("[data-inst]");
+  if(!t){if(e.target.id==="instSheet")closeInstall();return}
+  if(t.dataset.inst==="close")closeInstall();
+  else if(t.dataset.inst==="native"&&deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.finally(function(){deferredInstall=null;closeInstall()})}
+});
+addEventListener("appinstalled",closeInstall);
+if(location.protocol!=="file:"&&!isInstalled()){
+  var seen=false;try{seen=localStorage.getItem(INST_KEY)==="1"}catch(e){}
+  if(!seen)addEventListener("load",function(){setTimeout(function(){if(!isInstalled())showInstall()},1200)});
 }
 /* ---------- sign-in screen ---------- */
 var authMode="login";
