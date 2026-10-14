@@ -4,8 +4,8 @@
 //   supabaseAnonKey = the "anon public" key (a long text starting with eyJ...)
 // The anon key is meant to be public; your data is protected by the database rules in supabase.sql.
 window.BUDGETARIAN_CONFIG = {
-  supabaseUrl: "",
-  supabaseAnonKey: "",
+  supabaseUrl: "https://caozflkjmobifbvujybf.supabase.co",
+  supabaseAnonKey: "sb_publishable_DKi6Edz6eYsE1jPTbrVNmA_H52PAxOe",
 
   // Premium payment (optional). Paste your payment link, e.g. a PayMongo payment link (GCash, Maya, cards).
   // Leave premiumPayUrl empty to show "Premium is coming soon" instead of the Upgrade button.
