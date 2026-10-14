@@ -210,6 +210,7 @@ h2.band{background:var(--tint);color:var(--col);border-left:5px solid var(--col)
 h2 .hname{flex:1;min-width:0}
 h2 .hamt{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
 h2 .hamt small{display:block;font-size:.78rem;font-weight:600}
+.sched-title{margin:1.6rem 0 .5rem;font-size:1.1rem;font-weight:700}.sched{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}.sched>h2.schi{margin:0;padding:.85rem .9rem .85rem .8rem;border-bottom:1px solid var(--line);border-left:5px solid var(--col);font-weight:600;font-size:1rem;display:flex;align-items:center;gap:.5rem}.sched>h2.schi .hname{flex:1;min-width:0}.sched>h2.schi .hamt{font-weight:700}.sched>h2.schi:not(.shut){background:var(--tint);color:var(--col)}.sched>h2.schi:last-of-type.shut{border-bottom:0}.sched>.card{border:0;border-radius:0;border-bottom:1px solid var(--line);background:transparent}.sched>.card:last-child{border-bottom:0}
 h2.tog{cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:.5rem;-webkit-tap-highlight-color:transparent}
 h2.tog::after{content:"";flex:none;width:.55rem;height:.55rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:0 .35rem .2rem 0;transition:transform .15s}
 h2.tog.shut::after{transform:rotate(-45deg);margin-bottom:0}
@@ -350,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.2";
+var APP_VERSION="1.0.3";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -1196,7 +1197,7 @@ function renderHome(){
   /* Collapsible sections */
   var sect=function(title,cls,list,empty,totLabel,btn){
     var t=0;list.forEach(function(x){t+=x.v});
-    h+='<h2 class="band one '+cls+'" data-key="'+title+'"><span class="hname">'+title+'</span><span class="hamt">'+peso(t)+'</span></h2><div class="card">';
+    h+='<h2 class="schi '+cls+'" data-key="'+title+'"><span class="hname">'+title+'</span><span class="hamt">'+peso(t)+'</span></h2><div class="card">';
     if(!list.length){h+='<div class="row"><div class="lbl"><small>'+empty+'</small></div></div></div>';return}
     list.forEach(function(x){
       h+='<div class="row"><div class="lbl">'+esc(x.n)+(x.sub?'<small>'+x.sub+'</small>':'')+'</div>'+(x.it&&btn==="Set aside"?'<button class="pmb" data-act="spendItem" data-id="'+x.it.id+'" aria-label="Add '+esc(x.n)+' to Left to spend">+</button>':'')+'<div class="val">'+peso(x.v)+'</div>'+
@@ -1204,10 +1205,11 @@ function renderHome(){
     });
     h+='<div class="row total"><div class="lbl">'+totLabel+'</div><div class="val">'+peso(t)+'</div></div></div>';
   };
+  h+='<h2 class="sched-title" data-notog>Schedules</h2><div class="sched">';
   var alRows=(feat?[feat]:[]).concat(alc);
   if(alRows.length){
     var at=[0,0,0,0];
-    h+='<h2 class="band one c-used" data-key="albrk"><span class="hname">Allowance, net</span><span class="hamt">'+peso(fv)+'</span></h2><div class="card">';
+    h+='<h2 class="schi c-used" data-key="albrk"><span class="hname">Allowance, net</span><span class="hamt">'+peso(fv)+'</span></h2><div class="card">';
     alRows.forEach(function(c){
       var bf=carried(p,c),bu=budOf(p,c),us=usedIn(p.id,c.id),bl=r2(bf+bu-us);at[0]+=bf;at[1]+=bu;at[2]+=us;at[3]+=bl;
       h+='<div class="row"><div class="lbl">'+esc(c.al?c.name:(c.name||"Unnamed"))+'<small>'+(c.al?"Other allowance, ":"From your budget, ")+'forward '+fmt(bf)+', budget '+fmt(bu)+', used '+fmt(us)+'</small></div><div class="val'+(bl<-0.005?' neg':'')+'">'+peso(bl)+'</div></div>';
@@ -1218,7 +1220,7 @@ function renderHome(){
   var apl=apCats("ap");
   if(apl.length){
     var fund=0,due=apDueTot(p,null,"ap");apl.forEach(function(c){fund+=endBal(p,c)});fund=r2(fund);
-    h+='<h2 class="band one c-used" data-key="approp"><span class="hname">Appropriated Fund</span><span class="hamt">'+peso(r2(fund-due))+'</span></h2><div class="card">';
+    h+='<h2 class="schi c-used" data-key="approp"><span class="hname">Appropriated Fund</span><span class="hamt">'+peso(r2(fund-due))+'</span></h2><div class="card">';
     apl.forEach(function(c){var v=endBal(p,c);var a=state.accounts.filter(function(x){return x.id===c.accountId})[0];
       h+='<div class="row"><div class="lbl">'+esc(c.name)+'<small>'+esc(a?a.name:"No bank set")+'</small></div><div class="val">'+peso(v)+'</div></div>'});
     h+='<div class="row total"><div class="lbl">Appropriated Fund</div><div class="val">'+peso(fund)+'</div></div>'+
@@ -1234,8 +1236,9 @@ function renderHome(){
     if(ac.type==="card"){bh+='<div class="row"><div class="lbl">'+esc((ac.name||"Unnamed")+" owed")+'</div><div class="val neg">'+peso(-v)+'</div></div>';bank-=v}
     else{var nv=r2(v-r2(ac.min));bh+='<div class="row"><div class="lbl">'+esc(ac.name||"Unnamed")+'</div><div class="val">'+peso(nv)+'</div></div>';bank+=nv;if(r2(ac.min))nets.push(1)}
   });
-  h+='<h2 class="band one c-recon" data-key="banks"><span class="hname">Bank balances</span><span class="hamt">'+peso(r2(bank))+'</span></h2><div class="card">'+(any?bh:'<div class="row"><div class="lbl"><small>None entered yet</small></div></div>')+
+  h+='<h2 class="schi c-recon" data-key="banks"><span class="hname">Bank balances</span><span class="hamt">'+peso(r2(bank))+'</span></h2><div class="card">'+(any?bh:'<div class="row"><div class="lbl"><small>None entered yet</small></div></div>')+
      '<div class="row total"><div class="lbl">Total<small>'+(nets.length?'Net of Min. Bal. ':'')+(ga?'Excludes savings: '+esc(snames)+'.':'')+'</small></div><div class="val">'+peso(r2(bank))+'</div></div></div>';
+  h+='</div>';
   var when=bp&&bp.actualAt?new Date(bp.actualAt).toLocaleString("en-PH",{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"}):"";
   h+='<p class="hint" style="margin-top:1rem">'+(bp?("Bank balances last updated "+(when||"before this was tracked")+(bp!==p?", in the "+esc(labelOf(bp))+" sahod":"")+"."):"Bank balances not entered yet. Add them in the Bank tab.")+'</p>';
   h+='<div class="acts" style="display:flex;gap:.5rem;margin-top:.5rem"><button class="btn" data-tab="spend">Record a transaction</button><button class="btn ghost" data-tab="bank">Update bank balances</button></div>';
