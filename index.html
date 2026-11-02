@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.5";
+var APP_VERSION="1.0.6";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -540,7 +540,7 @@ function calc(p){
   state.dedLines.forEach(function(l){var a=r2(p.ded[l.id]);if(l.group==="mandatory")o.mand+=a;else o.oth+=a});
   o.mand=r2(o.mand);o.oth=r2(o.oth);o.ded=r2(o.mand+o.oth);o.net=r2(o.gross-o.ded);
   if(p.pay===undefined&&p.start===undefined&&Array.isArray(p.srcs))state.incSrc.forEach(function(sr){if(p.srcs.indexOf(sr.id)>=0&&!sr.approp&&!sr.allow)o.other+=r2(sr.amt)});
-  else (p.inc||[]).forEach(function(id){var e=incById(id);if(e&&!isAp(e))o.other+=r2(e.amt)});
+  else (p.inc||[]).forEach(function(id){var e=incById(id);if(e&&!isAp(e))o.other+=e.doubt?recvAll(e):r2(e.amt)});
   o.other=r2(o.other);o.total=r2(o.net+o.other);
   state.cats.forEach(function(c){
     var a=r2(p.budget[c.id]);o.alloc+=a;
@@ -597,7 +597,7 @@ function incStatus(e){
 function uncollected(p,aid,fallback,ids){
   var k=p.pay||p.start,lim=nextPay(k)||"9999",v=0;
   state.income.forEach(function(e){
-    if(isAp(e))return;
+    if(isAp(e)||(e.doubt&&incPeriod(e.id)))return;
     if(aid!==undefined){var sr=srcOf(e),ac=sr&&ids&&ids[sr.acct]?sr.acct:fallback;if(ac!==aid)return}
     var q=incPeriod(e.id),inScope=(e.due&&e.due<lim)||(q&&(q.pay||q.start)<=k);
     if(inScope)v+=Math.max(0,r2(r2(e.amt)-recvAsOf(e,k)));
@@ -1192,14 +1192,14 @@ function renderHome(){
     else L[k].push({it:it,n:it.name||"Unnamed",v:v});
   });
   var owed=[];
-  updCollect(p).forEach(function(e){var a=r2(r2(e.amt)-recvAll(e));if(a>0.005)owed.push({n:e.name||"Unnamed",v:a,sub:"Due "+(e.due?short(e.due):"not set")})});
+  updCollect(p).forEach(function(e){var a=r2(r2(e.amt)-recvAll(e));if(a>0.005)owed.push({n:e.name||"Unnamed",v:a,dbt:!!e.doubt,sub:"Due "+(e.due?short(e.due):"not set")+(e.doubt?", doubtful, not counted":"")})});
   L.from.forEach(function(x){if(ai&&ai.id===x.it.id)return;owed.push({n:x.n,v:-x.v,it:x.it,sub:"Owed to me"})});
   dueFrom().forEach(function(x){owed.push({n:x.who,v:x.amt,sub:"From Spend"})});
-  var ot=0;owed.forEach(function(x){ot+=x.v});
+  var ot=0;owed.forEach(function(x){if(!x.dbt)ot+=x.v});
   h+='<div class="box" style="min-width:0;container-type:inline-size"><div class="boxh"><span class="hname hbig">Collectibles</span><span class="hamt hbigamt">'+peso(r2(ot))+'</span></div>';
   if(!owed.length)h+='<div class="li"><span>Nothing is owed to you right now</span></div>';
   owed.forEach(function(x){
-    h+='<div class="li" style="flex-wrap:wrap"><span>'+esc(x.n)+'<small style="display:block;opacity:.7;white-space:normal">'+x.sub+'</small></span><span style="margin-left:auto">'+peso(x.v)+'</span>'+
+    h+='<div class="li" style="flex-wrap:wrap'+(x.dbt?';opacity:.5;text-decoration:line-through':'')+'"><span>'+esc(x.n)+'<small style="display:block;opacity:.7;white-space:normal">'+x.sub+'</small></span><span style="margin-left:auto">'+peso(x.v)+'</span>'+
        (x.it?'<span style="flex-basis:100%;display:flex;gap:.35rem;justify-content:flex-end"><button class="pmb" data-act="spendItem" data-id="'+x.it.id+'" aria-label="Add '+esc(x.n)+' to Left to spend">+</button><button class="btn ghost small" data-act="offset" data-id="'+x.it.id+'" aria-label="Set aside, '+esc(x.n)+'">Set aside</button></span>':'')+'</div>';
   });
   h+='<small class="cap" style="white-space:normal;margin-top:.35rem">Amounts owed to you.</small></div></div>';
@@ -1377,7 +1377,7 @@ function renderCollect(){
     arr.forEach(function(e){
       var q=incPeriod(e.id);
       r+='<div class="row"><label class="curchk"><input type="checkbox" data-got="'+e.id+'"'+(e.got?" checked":"")+' aria-label="Got '+esc(e.name||"")+'"></label>'+
-         '<div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(!e.got&&e.due&&e.due<todayIso()?", overdue":"")+(isAp(e)?(srcOf(e).allow?", other allowance":", appropriated"):q?", counted in the "+esc(labelOf(q)):", not counted in a payroll yet")+'<br>'+incStatus(e)+'</small></div>'+
+         '<div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(!e.got&&e.due&&e.due<todayIso()?", overdue":"")+(isAp(e)?(srcOf(e).allow?", other allowance":", appropriated"):q?", counted in the "+esc(labelOf(q)):", not counted in a payroll yet")+'<br>'+incStatus(e)+(e.doubt?', <b style="color:var(--c-recon)">doubtful, not in cash flow</b>':'')+'</small></div>'+(isAp(e)?'':'<button class="btn ghost small" data-act="doubt" data-id="'+e.id+'" aria-pressed="'+(e.doubt?'true':'false')+'" style="'+(e.doubt?'background:var(--t-recon);color:var(--c-recon);border-color:var(--c-recon)':'')+'">'+(e.doubt?'\u2713 Doubtful':'Doubtful')+'</button>')+
          '<input class="amt" inputmode="decimal" autocomplete="off" data-k="incRecv:'+e.id+'" value="'+(recvAll(e)?fmt(recvAll(e)):"")+'" placeholder="Received" aria-label="Amount received so far for '+esc(e.name||"")+'" style="width:6.5rem"></div>';
     });
     return r;
@@ -1385,8 +1385,8 @@ function renderCollect(){
   var cp=state.periods.filter(function(x){return x.id===state.active})[0]||cur(),ck=cp?(cp.pay||cp.start):prevPay(todayIso()),clim=nextPay(ck)||"9999";
   var now=open.filter(function(e){return (e.due&&e.due>=ck&&e.due<clim)||(cp&&incPeriod(e.id)===cp)});
   var early=open.filter(function(e){return now.indexOf(e)<0&&e.due&&e.due<ck});
-  var tot=0;now.forEach(function(e){tot+=r2(e.amt)-recvAll(e)});tot=r2(tot);
-  var etot=0;early.forEach(function(e){etot+=r2(e.amt)-recvAll(e)});etot=r2(etot);
+  var tot=0;now.forEach(function(e){if(!e.doubt)tot+=r2(e.amt)-recvAll(e)});tot=r2(tot);
+  var etot=0;early.forEach(function(e){if(!e.doubt)etot+=r2(e.amt)-recvAll(e)});etot=r2(etot);
   var h="";
   h+='<h2 class="band c-income">Upcoming collections</h2><p class="hint">Collections due in the '+(cp?esc(labelOf(cp)):"current payroll")+'. Tick an item once you receive it in full, or type what you have received so far.</p><div class="card">';
   h+=now.length?rows(now)+'<div class="row total"><div class="lbl">Total to collect</div><div class="val">'+peso(tot)+'</div></div>':'<div class="row"><div class="lbl"><small>Nothing due in this payroll.</small></div></div>';
@@ -1517,7 +1517,7 @@ function renderUpdate(){
     h+='<p class="hint">Collections due up to this sahod that are not fully received. Tick one received in full, or type what you have received so far.</p><div class="card">';
     if(!cl.length)h+='<div class="row"><div class="lbl"><small>Nothing to collect.</small></div></div>';
     cl.forEach(function(e){
-      h+='<div class="row"><label class="curchk"><input type="checkbox" data-got="'+e.id+'" aria-label="Got '+esc(e.name||"")+'"></label><div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+'</small></div>'+
+      h+='<div class="row"><label class="curchk"><input type="checkbox" data-got="'+e.id+'" aria-label="Got '+esc(e.name||"")+'"></label><div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(e.doubt?', <b style="color:var(--c-recon)">doubtful</b>':'')+'</small></div>'+(isAp(e)?'':'<button class="btn ghost small" data-act="doubt" data-id="'+e.id+'" aria-pressed="'+(e.doubt?'true':'false')+'" style="'+(e.doubt?'background:var(--t-recon);color:var(--c-recon);border-color:var(--c-recon)':'')+'">'+(e.doubt?'\u2713 Doubtful':'Doubtful')+'</button>')+
          '<input class="amt" inputmode="decimal" autocomplete="off" data-k="incRecv:'+e.id+'" value="'+(recvAll(e)?fmt(recvAll(e)):"")+'" placeholder="Received" aria-label="Amount received so far for '+esc(e.name||"")+'" style="width:6.5rem"></div>';
     });
     h+='</div>'+go("updTo4");
@@ -1791,6 +1791,7 @@ document.addEventListener("click",function(e){
     planDates().forEach(function(d){var t=defaultTpl(d);if(t&&!periodFor(d))applyTpl(makePeriod(d),t)});
     if(!state.cur)state.cur=state.periods[0].id;touch();render();return;
   }
+  if(act==="doubt"){var de=incById(b.dataset.id);if(de){var dq=incPeriod(de.id);if(dq&&(dq.locked||dq.lockB)){setStatus("Unlock the budget of the "+labelOf(dq)+" first");return}de.doubt=!de.doubt;touch();render();setStatus(de.doubt?"Marked doubtful. Removed from cash flow":"No longer doubtful. Back in cash flow")}return}
   if(act==="dueAdd"){if(!Array.isArray(state.dues))state.dues=[];
     var dd=($("#dueDesc")||{}).value||"",da=parse(($("#dueAmt")||{}).value||""),dw=($("#dueWhen")||{}).value||"";
     if(!dd.trim()){setStatus("Enter a description");return}
