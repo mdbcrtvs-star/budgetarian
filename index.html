@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.6";
+var APP_VERSION="1.0.7";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -909,11 +909,11 @@ function isAp(e){var sr=srcOf(e);return !!(sr&&(sr.approp||sr.allow))}
 function apCats(t){return state.incSrc.filter(function(x){return t==="ap"?x.approp:t==="al"?x.allow:(x.approp||x.allow)}).map(function(x){return {id:"ap_"+x.id,name:x.name||"Unnamed",group:x.allow?"Other allowance":"Appropriated",accountId:x.acct||"",ap:x,al:!!x.allow}})}
 function fundLabel(c){return (c.al?"Other allowance: ":"Appropriated: ")+c.name}
 function balCats(){return state.cats.concat(apCats())}
-function apIn(src,from,to){var v=0;state.income.forEach(function(e){if(e.srcId===src.id&&e.due&&e.due>=from&&e.due<to)v+=r2(e.amt)});return r2(v)}
+function apIn(src,from,to){var v=0;state.income.forEach(function(e){if(e.srcId===src.id&&e.due&&e.due>=from&&e.due<to)v+=e.doubt?recvAll(e):r2(e.amt)});return r2(v)}
 function budOf(p,c){if(c.ap){var k=p.pay||p.start;return apIn(c.ap,k,nextPay(k)||"9999")}return r2(p.budget[c.id])}
 function apDue(p,src){
   var k=p.pay||p.start,lim=nextPay(k)||"9999",v=0;
-  state.income.forEach(function(e){if(e.srcId===src.id&&e.due&&e.due<lim)v+=Math.max(0,r2(r2(e.amt)-recvAsOf(e,k)))});
+  state.income.forEach(function(e){if(e.srcId===src.id&&e.due&&e.due<lim&&!e.doubt)v+=Math.max(0,r2(r2(e.amt)-recvAsOf(e,k)))});
   return r2(v);
 }
 function apDueTot(p,aid,t){var v=0;state.incSrc.forEach(function(x){if((t==="ap"?x.approp:t==="al"?x.allow:(x.approp||x.allow))&&(aid===undefined||aid===null||aid===(x.acct||"")))v+=apDue(p,x)});return r2(v)}
@@ -1377,7 +1377,7 @@ function renderCollect(){
     arr.forEach(function(e){
       var q=incPeriod(e.id);
       r+='<div class="row"><label class="curchk"><input type="checkbox" data-got="'+e.id+'"'+(e.got?" checked":"")+' aria-label="Got '+esc(e.name||"")+'"></label>'+
-         '<div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(!e.got&&e.due&&e.due<todayIso()?", overdue":"")+(isAp(e)?(srcOf(e).allow?", other allowance":", appropriated"):q?", counted in the "+esc(labelOf(q)):", not counted in a payroll yet")+'<br>'+incStatus(e)+(e.doubt?', <b style="color:var(--c-recon)">doubtful, not in cash flow</b>':'')+'</small></div>'+(isAp(e)?'':'<button class="btn ghost small" data-act="doubt" data-id="'+e.id+'" aria-pressed="'+(e.doubt?'true':'false')+'" style="'+(e.doubt?'background:var(--t-recon);color:var(--c-recon);border-color:var(--c-recon)':'')+'">'+(e.doubt?'\u2713 Doubtful':'Doubtful')+'</button>')+
+         '<div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(!e.got&&e.due&&e.due<todayIso()?", overdue":"")+(isAp(e)?(srcOf(e).allow?", other allowance":", appropriated"):q?", counted in the "+esc(labelOf(q)):", not counted in a payroll yet")+'<br>'+incStatus(e)+(e.doubt?', <b style="color:var(--c-recon)">doubtful, not in cash flow</b>':'')+'</small></div>'+('<button class="btn ghost small" data-act="doubt" data-id="'+e.id+'" aria-pressed="'+(e.doubt?'true':'false')+'" style="'+(e.doubt?'background:var(--t-recon);color:var(--c-recon);border-color:var(--c-recon)':'')+'">'+(e.doubt?'\u2713 Doubtful':'Doubtful')+'</button>')+
          '<input class="amt" inputmode="decimal" autocomplete="off" data-k="incRecv:'+e.id+'" value="'+(recvAll(e)?fmt(recvAll(e)):"")+'" placeholder="Received" aria-label="Amount received so far for '+esc(e.name||"")+'" style="width:6.5rem"></div>';
     });
     return r;
@@ -1517,7 +1517,7 @@ function renderUpdate(){
     h+='<p class="hint">Collections due up to this sahod that are not fully received. Tick one received in full, or type what you have received so far.</p><div class="card">';
     if(!cl.length)h+='<div class="row"><div class="lbl"><small>Nothing to collect.</small></div></div>';
     cl.forEach(function(e){
-      h+='<div class="row"><label class="curchk"><input type="checkbox" data-got="'+e.id+'" aria-label="Got '+esc(e.name||"")+'"></label><div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(e.doubt?', <b style="color:var(--c-recon)">doubtful</b>':'')+'</small></div>'+(isAp(e)?'':'<button class="btn ghost small" data-act="doubt" data-id="'+e.id+'" aria-pressed="'+(e.doubt?'true':'false')+'" style="'+(e.doubt?'background:var(--t-recon);color:var(--c-recon);border-color:var(--c-recon)':'')+'">'+(e.doubt?'\u2713 Doubtful':'Doubtful')+'</button>')+
+      h+='<div class="row"><label class="curchk"><input type="checkbox" data-got="'+e.id+'" aria-label="Got '+esc(e.name||"")+'"></label><div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(e.doubt?', <b style="color:var(--c-recon)">doubtful</b>':'')+'</small></div>'+('<button class="btn ghost small" data-act="doubt" data-id="'+e.id+'" aria-pressed="'+(e.doubt?'true':'false')+'" style="'+(e.doubt?'background:var(--t-recon);color:var(--c-recon);border-color:var(--c-recon)':'')+'">'+(e.doubt?'\u2713 Doubtful':'Doubtful')+'</button>')+
          '<input class="amt" inputmode="decimal" autocomplete="off" data-k="incRecv:'+e.id+'" value="'+(recvAll(e)?fmt(recvAll(e)):"")+'" placeholder="Received" aria-label="Amount received so far for '+esc(e.name||"")+'" style="width:6.5rem"></div>';
     });
     h+='</div>'+go("updTo4");
@@ -1791,7 +1791,7 @@ document.addEventListener("click",function(e){
     planDates().forEach(function(d){var t=defaultTpl(d);if(t&&!periodFor(d))applyTpl(makePeriod(d),t)});
     if(!state.cur)state.cur=state.periods[0].id;touch();render();return;
   }
-  if(act==="doubt"){var de=incById(b.dataset.id);if(de){var dq=incPeriod(de.id);if(dq&&(dq.locked||dq.lockB)){setStatus("Unlock the budget of the "+labelOf(dq)+" first");return}de.doubt=!de.doubt;touch();render();setStatus(de.doubt?"Marked doubtful. Removed from cash flow":"No longer doubtful. Back in cash flow")}return}
+  if(act==="doubt"){var de=incById(b.dataset.id);if(de){var dq=incPeriod(de.id);if(dq&&(dq.locked||dq.lockB)){setStatus("Unlock the budget of the "+labelOf(dq)+" first");return}de.doubt=!de.doubt;touch();render();setStatus(de.doubt?"Marked doubtful. No longer counted as money to spend":"No longer doubtful. Counted again")}return}
   if(act==="dueAdd"){if(!Array.isArray(state.dues))state.dues=[];
     var dd=($("#dueDesc")||{}).value||"",da=parse(($("#dueAmt")||{}).value||""),dw=($("#dueWhen")||{}).value||"";
     if(!dd.trim()){setStatus("Enter a description");return}
