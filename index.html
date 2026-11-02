@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.4";
+var APP_VERSION="1.0.5";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -868,18 +868,27 @@ function renderPlan(){
   if(state.accounts.some(function(a){return r2(a.min)}))rowRc("Less Min. Bal","min");
   rowRc("Actual balance","actual","total");
   rowRc("Should be, per budget","should");
-  rowRc("Difference (should be less actual)","diff","total");
+  rowRc("Difference (actual less should be)","ndiff","total");
   var aiR=arItem();
+  var xfers=[];
   state.recon.forEach(function(it){
     if(aiR&&aiR.id===it.id){row(recLabel(it)+", auto",function(p){return reconVal(p,it)});return}
+    if(it.kind==="bank"){xfers.push(it);return}
     rowIn(recLabel(it),function(p){return "rec:"+p.id+":"+it.id},function(p){return reconVal(p,it)},true,
       it.kind==="bank"?function(p){return '<button class="btn ghost small" style="display:block;margin:.3rem 0 0 auto" data-act="autoOffset" data-pid="'+p.id+'" data-id="'+it.id+'"'+(p.locked?' disabled':'')+' aria-label="Auto update '+esc(recName(it))+' for '+esc(labelOf(p))+'">Auto</button>'}:null);
   });
+  if(xfers.length){
+    h+='</tbody><tbody class="c-bal" data-defshut="1"><tr class="grp"><td>Bank transfers ('+xfers.length+')</td>';ps.forEach(function(){h+='<td></td>'});h+='</tr>';
+    xfers.forEach(function(it){
+      rowIn(recLabel(it),function(p){return "rec:"+p.id+":"+it.id},function(p){return reconVal(p,it)},true,function(p){return '<button class="btn ghost small" style="display:block;margin:.3rem 0 0 auto" data-act="autoOffset" data-pid="'+p.id+'" data-id="'+it.id+'"'+(p.locked?' disabled':'')+' aria-label="Auto update '+esc(recName(it))+' for '+esc(labelOf(p))+'">Auto</button>'});
+    });
+    h+='</tbody><tbody>';
+  }
   if(state.tx.some(function(t){return t.type==="exp"&&t.who}))rowRc("Owed to me, from Spend","auto");
   if(apCats("ap").length)rowRc("Appropriated Fund still due, auto","apdue");
   if(apCats("al").length)rowRc("Other allowance still due, auto","aldue");
   rowRc("Unexplained difference","variance","total");
-  h+='</tbody></table></div><p class="hint">Left to budget and Unexplained difference should both read 0.00 in every column. Bank balances come from the Bank tab. Unexplained difference is the Difference plus the items to match, each with the sign you gave it.</p>';
+  h+='</tbody></table></div><p class="hint">Left to budget and Unexplained difference should both read 0.00 in every column. Bank balances come from the Bank tab. Unexplained difference is the items to match, each with the sign you gave it, less the Difference. Bank transfers are folded; tap the row to open them.</p>';
   h+='<h2 class="band c-recon">Items to match</h2><p class="hint">Drag the dots to reorder. Rename, set each item as owed to me or a funding, tag it to an account, delete, or add items. Enter amounts in the table above. An amount keeps the sign you give it: enter money owed to you as minus and a funding as plus, so they add to the Difference and bring the Unexplained difference to zero. Use the \u00B1 button for minus.</p><div class="card">';
   state.recon.forEach(function(it){
     h+=setRow("recon",it,'<select data-k="reconKind:'+it.id+'" aria-label="Type"><option value="from"'+(it.kind!=="to"?" selected":"")+'>Owed to me</option><option value="to"'+(it.kind==="to"?" selected":"")+'>Funding</option><option value="bank"'+(it.kind==="bank"?" selected":"")+'>Bank transfer</option></select>'+
@@ -1003,7 +1012,7 @@ function refreshRecon(){
   var get=function(pid){if(!cache[pid]){var p=state.periods.filter(function(x){return x.id===pid})[0];cache[pid]=p?rc(p):null}return cache[pid]};
   document.querySelectorAll("[data-rc]").forEach(function(el){
     var a=el.dataset.rc.split(":"),o=get(a[0]);if(!o)return;
-    var v=o[a[1]];el.textContent=fmt(v);
+    var v=a[1]==="ndiff"?-o.diff:o[a[1]];el.textContent=fmt(v);
     el.className=a[1]==="variance"&&!el.closest("tr.grp")?(Math.abs(v)<0.005?"zero":"neg"):"";
   });
   var ug=document.getElementById("updRecGo");if(ug){var uo=get(state.active||(cur()||{}).id);if(uo)ug.disabled=Math.abs(uo.variance)>=0.005}
@@ -1710,7 +1719,7 @@ function applyCollapse(){
   });
   v.querySelectorAll(".plan tbody[class]").forEach(function(tb){
     var g=tb.querySelector("tr.grp");if(!g)return;
-    var key="roll:"+g.cells[0].textContent;tb.dataset.ck=key;tb.classList.toggle("shut",!!shut[key]);
+    var key="roll:"+g.cells[0].textContent;tb.dataset.ck=key;tb.classList.toggle("shut",key in shut?!!shut[key]:tb.dataset.defshut==="1");
   });
 }
 function toggleKey(key,def){shut[key]=!(key in shut?shut[key]:def);try{localStorage.setItem(CK,JSON.stringify(shut))}catch(e){}applyCollapse()}
@@ -1750,7 +1759,7 @@ document.addEventListener("click",function(e){
   var hg=e.target.closest("h2.tog");
   if(hg){toggleKey(hg.dataset.ck,defShut(hg.classList.contains("sec"),hg.dataset.ck));return}
   var gr=e.target.closest(".plan tbody[class] tr.grp");
-  if(gr){toggleKey(gr.parentNode.dataset.ck,false);return}
+  if(gr){toggleKey(gr.parentNode.dataset.ck,gr.parentNode.dataset.defshut==="1");return}
   var j=e.target.closest("[data-jump]");
   if(j){if(shut["budget:"+(j.dataset.jump==="secIncome"?"Income":"Budget breakdown")]){shut["budget:"+(j.dataset.jump==="secIncome"?"Income":"Budget breakdown")]=false;applyCollapse()}
     var tg=document.getElementById(j.dataset.jump);if(tg&&tg.scrollIntoView)tg.scrollIntoView({behavior:"smooth",block:"start"});return}
