@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.7";
+var APP_VERSION="1.0.8";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -586,7 +586,7 @@ function syncIncome(){
 }
 function recvAll(e){var v=0;(e.rc||[]).forEach(function(r){v+=r2(r.a)});return r2(v)}
 function recvAsOf(e,k){var v=0;(e.rc||[]).forEach(function(r){if(r.k<=k)v+=r2(r.a)});return r2(v)}
-function setGot(e){e.got=r2(e.amt)>0&&recvAll(e)>=r2(e.amt)-0.005}
+function setGot(e){e.got=r2(e.amt)>0&&recvAll(e)>=r2(e.amt)-0.005;if(e.got)delete e.doubt}
 function curKey(){var gp=state.periods.filter(function(x){return x.id===state.active})[0]||cur();return gp?(gp.pay||gp.start):todayIso()}
 function incStatus(e){
   var rv=recvAll(e),left=r2(r2(e.amt)-rv);
@@ -1377,7 +1377,7 @@ function renderCollect(){
     arr.forEach(function(e){
       var q=incPeriod(e.id);
       r+='<div class="row"><label class="curchk"><input type="checkbox" data-got="'+e.id+'"'+(e.got?" checked":"")+' aria-label="Got '+esc(e.name||"")+'"></label>'+
-         '<div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(!e.got&&e.due&&e.due<todayIso()?", overdue":"")+(isAp(e)?(srcOf(e).allow?", other allowance":", appropriated"):q?", counted in the "+esc(labelOf(q)):", not counted in a payroll yet")+'<br>'+incStatus(e)+(e.doubt?', <b style="color:var(--c-recon)">doubtful, not in cash flow</b>':'')+'</small></div>'+('<button class="btn ghost small" data-act="doubt" data-id="'+e.id+'" aria-pressed="'+(e.doubt?'true':'false')+'" style="'+(e.doubt?'background:var(--t-recon);color:var(--c-recon);border-color:var(--c-recon)':'')+'">'+(e.doubt?'\u2713 Doubtful':'Doubtful')+'</button>')+
+         '<div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(!e.got&&e.due&&e.due<todayIso()?", overdue":"")+(isAp(e)?(srcOf(e).allow?", other allowance":", appropriated"):q?", counted in the "+esc(labelOf(q)):", not counted in a payroll yet")+'<br>'+incStatus(e)+(e.doubt?', <b style="color:var(--c-recon)">doubtful, not in cash flow</b>':'')+'</small></div>'+(e.got?'':'<button class="btn ghost small" data-act="doubt" data-id="'+e.id+'" aria-pressed="'+(e.doubt?'true':'false')+'" style="'+(e.doubt?'background:var(--t-recon);color:var(--c-recon);border-color:var(--c-recon)':'')+'">'+(e.doubt?'\u2713 Doubtful':'Doubtful')+'</button>')+
          '<input class="amt" inputmode="decimal" autocomplete="off" data-k="incRecv:'+e.id+'" value="'+(recvAll(e)?fmt(recvAll(e)):"")+'" placeholder="Received" aria-label="Amount received so far for '+esc(e.name||"")+'" style="width:6.5rem"></div>';
     });
     return r;
@@ -1517,7 +1517,7 @@ function renderUpdate(){
     h+='<p class="hint">Collections due up to this sahod that are not fully received. Tick one received in full, or type what you have received so far.</p><div class="card">';
     if(!cl.length)h+='<div class="row"><div class="lbl"><small>Nothing to collect.</small></div></div>';
     cl.forEach(function(e){
-      h+='<div class="row"><label class="curchk"><input type="checkbox" data-got="'+e.id+'" aria-label="Got '+esc(e.name||"")+'"></label><div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(e.doubt?', <b style="color:var(--c-recon)">doubtful</b>':'')+'</small></div>'+('<button class="btn ghost small" data-act="doubt" data-id="'+e.id+'" aria-pressed="'+(e.doubt?'true':'false')+'" style="'+(e.doubt?'background:var(--t-recon);color:var(--c-recon);border-color:var(--c-recon)':'')+'">'+(e.doubt?'\u2713 Doubtful':'Doubtful')+'</button>')+
+      h+='<div class="row"><label class="curchk"><input type="checkbox" data-got="'+e.id+'" aria-label="Got '+esc(e.name||"")+'"></label><div class="lbl">'+esc(e.name||"Unnamed")+' <span style="font-variant-numeric:tabular-nums">'+peso(e.amt)+'</span><small>Due '+(e.due?short(e.due):"not set")+(e.doubt?', <b style="color:var(--c-recon)">doubtful</b>':'')+'</small></div>'+(e.got?'':'<button class="btn ghost small" data-act="doubt" data-id="'+e.id+'" aria-pressed="'+(e.doubt?'true':'false')+'" style="'+(e.doubt?'background:var(--t-recon);color:var(--c-recon);border-color:var(--c-recon)':'')+'">'+(e.doubt?'\u2713 Doubtful':'Doubtful')+'</button>')+
          '<input class="amt" inputmode="decimal" autocomplete="off" data-k="incRecv:'+e.id+'" value="'+(recvAll(e)?fmt(recvAll(e)):"")+'" placeholder="Received" aria-label="Amount received so far for '+esc(e.name||"")+'" style="width:6.5rem"></div>';
     });
     h+='</div>'+go("updTo4");
