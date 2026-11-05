@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.13";
+var APP_VERSION="1.0.14";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -1403,7 +1403,8 @@ function renderCollect(){
 function renderBank(){
   var p=state.periods.filter(function(x){return x.id===state.active})[0]||cur();
   if(!p)return emptyState("Start a sahod to see what each account should hold.","Start a sahod","togglePanel");
-  var h='<p class="hint">What each account should hold as of the '+esc(labelOf(p))+' sahod, checked against the actual balances you enter here. Each account below shows the balance it holds. A check mark means it matches. If it does not match, the check figure shows by how much. Tap an account to see its breakdown.</p>';
+  var h='<p class="hint">What each account should hold as of the '+esc(labelOf(p))+' sahod, checked against the actual balances you enter here. Each account below shows the balance it holds. A check mark means it matches. If it does not match, the check figure shows by how much. Tap an account to see its breakdown.</p>'+
+    '<div class="card" style="margin:.5rem 0 1rem;padding:.75rem"><div class="lbl" style="font-weight:600">Bank transfers</div><p class="hint" style="margin:.2rem 0 .6rem">Balance every bank against the others for the '+esc(labelOf(p))+'. This fills in the bank transfers so each bank\u2019s check reads zero.</p><button class="btn" data-act="autoOffset" data-pid="'+p.id+'"'+(p.locked?' disabled':'')+'>Auto-balance all banks</button>'+(p.locked?'<small class="hint" style="display:block;margin-top:.4rem">This sahod is locked.</small>':'')+'</div>';
   state.bankDraft=state.bankDraft||{};
   var dv=function(a){return a.id in state.bankDraft?state.bankDraft[a.id]:(p.actual||{})[a.id]};
   var up=p.actual&&Object.keys(p.actual).length,upAt=p.actualAt?new Date(p.actualAt).toLocaleString("en-PH",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}):"";
