@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.10";
+var APP_VERSION="1.0.11";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -869,6 +869,9 @@ function renderPlan(){
   rowRc("Actual balance","actual","total");
   rowRc("Should be, per budget","should");
   rowRc("Difference (actual less should be)","ndiff","total");
+  h+='<tr><td>Copy items to match from the previous sahod</td>';
+  ps.forEach(function(p){h+=p?'<td><button class="btn ghost small" data-act="copyPrevRec" data-pid="'+p.id+'"'+(p.locked?' disabled':'')+' aria-label="Copy items to match into '+esc(labelOf(p))+'">Copy previous</button></td>':'<td></td>'});
+  h+='</tr>';
   var aiR=arItem();
   var xfers=[];
   state.recon.forEach(function(it){
@@ -1792,6 +1795,16 @@ document.addEventListener("click",function(e){
     if(!state.cur)state.cur=state.periods[0].id;touch();render();return;
   }
   if(act==="doubt"){var de=incById(b.dataset.id);if(de){var dq=incPeriod(de.id);if(dq&&(dq.locked||dq.lockB)){setStatus("Unlock the budget of the "+labelOf(dq)+" first");return}de.doubt=!de.doubt;touch();render();setStatus(de.doubt?"Marked doubtful. No longer counted as money to spend":"No longer doubtful. Counted again")}return}
+  if(act==="copyPrevRec"){
+    var cp2=state.periods.filter(function(x){return x.id===b.dataset.pid})[0];if(!cp2)return;
+    if(cp2.locked){setStatus("That sahod is locked");return}
+    var pv=null;state.periods.forEach(function(q){if(payKey(q)<payKey(cp2)&&(!pv||payKey(q)>payKey(pv)))pv=q});
+    if(!pv){setStatus("No earlier sahod to copy from");return}
+    if(!confirm("Copy the items to match from the "+labelOf(pv)+" into the "+labelOf(cp2)+"? Bank transfers and automatic items are skipped. Amounts already typed for those items will be replaced."))return;
+    var cai=arItem(),cn=0;cp2.recon=cp2.recon||{};
+    state.recon.forEach(function(it){if(it.kind==="bank"||(cai&&cai.id===it.id))return;cp2.recon[it.id]=r2(reconVal(pv,it));cn++});
+    touch();render();setStatus("Copied "+cn+" item"+(cn===1?"":"s")+" from the "+labelOf(pv));return;
+  }
   if(act==="dueAdd"){if(!Array.isArray(state.dues))state.dues=[];
     var dd=($("#dueDesc")||{}).value||"",da=parse(($("#dueAmt")||{}).value||""),dw=($("#dueWhen")||{}).value||"";
     if(!dd.trim()){setStatus("Enter a description");return}
