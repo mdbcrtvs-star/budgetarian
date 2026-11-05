@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.9";
+var APP_VERSION="1.0.10";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -1853,7 +1853,7 @@ document.addEventListener("click",function(e){
     var lp=state.periods.filter(function(x){return x.id===b.dataset.id})[0];
     if(lp){
       lp.locked=!lp.locked;
-      if(lp.locked){lp.recon=lp.recon||{};state.recon.forEach(function(it){if(lp.recon[it.id]===undefined)lp.recon[it.id]=reconVal(lp,it)});lp.reconCopied=true}
+      if(lp.locked){lp.recon=lp.recon||{};state.recon.forEach(function(it){if(lp.recon[it.id]===undefined)lp.recon[it.id]=reconVal(lp,it)});var lai=arItem();if(lai)lp.recon[lai.id]=-uncollected(lp);lp.reconCopied=true}
       touch();render();setStatus(lp.locked?"Sahod locked":"Sahod unlocked");
     }
     return;
