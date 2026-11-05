@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.12";
+var APP_VERSION="1.0.13";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -1803,7 +1803,9 @@ document.addEventListener("click",function(e){
     if(!confirmTap(b,"Tap again to copy"))return;
     var cai=arItem(),cn=0;cp2.recon=cp2.recon||{};
     state.recon.forEach(function(it){if(it.kind==="bank"||(cai&&cai.id===it.id))return;cp2.recon[it.id]=r2(reconVal(pv,it));cn++});
-    touch();render();setStatus("Copied "+cn+" item"+(cn===1?"":"s")+" from the "+labelOf(pv));return;
+    var bs=null;state.periods.forEach(function(q){if(payKey(q)<payKey(cp2)&&q.actual&&Object.keys(q.actual).some(function(k){return r2(q.actual[k])})&&(!bs||payKey(q)>payKey(bs)))bs=q});
+    if(bs){cp2.actual=JSON.parse(JSON.stringify(bs.actual));if(bs.actualAt)cp2.actualAt=bs.actualAt}
+    touch();render();setStatus("Copied "+cn+" item"+(cn===1?"":"s")+(bs?" and bank balances":"")+" from the "+labelOf(pv)+(bs&&bs!==pv?" (balances from the "+labelOf(bs)+")":""));return;
   }
   if(act==="dueAdd"){if(!Array.isArray(state.dues))state.dues=[];
     var dd=($("#dueDesc")||{}).value||"",da=parse(($("#dueAmt")||{}).value||""),dw=($("#dueWhen")||{}).value||"";
