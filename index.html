@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.14";
+var APP_VERSION="1.0.15";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -1195,7 +1195,7 @@ function renderHome(){
     else L[k].push({it:it,n:it.name||"Unnamed",v:v});
   });
   var owed=[];
-  updCollect(p).forEach(function(e){var a=r2(r2(e.amt)-recvAll(e));if(a>0.005)owed.push({n:e.name||"Unnamed",v:a,dbt:!!e.doubt,sub:"Due "+(e.due?short(e.due):"not set")+(e.doubt?", doubtful, not counted":"")})});
+  updCollect(p).forEach(function(e){var a=r2(r2(e.amt)-recvAll(e));if(a>0.005&&!e.doubt)owed.push({n:e.name||"Unnamed",v:a,dbt:!!e.doubt,sub:"Due "+(e.due?short(e.due):"not set")+(e.doubt?", doubtful, not counted":"")})});
   L.from.forEach(function(x){if(ai&&ai.id===x.it.id)return;owed.push({n:x.n,v:-x.v,it:x.it,sub:"Owed to me"})});
   dueFrom().forEach(function(x){owed.push({n:x.who,v:x.amt,sub:"From Spend"})});
   var ot=0;owed.forEach(function(x){if(!x.dbt)ot+=x.v});
