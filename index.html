@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.15";
+var APP_VERSION="1.0.16";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -1203,7 +1203,7 @@ function renderHome(){
   if(!owed.length)h+='<div class="li"><span>Nothing is owed to you right now</span></div>';
   owed.forEach(function(x){
     h+='<div class="li" style="flex-wrap:wrap'+(x.dbt?';opacity:.5;text-decoration:line-through':'')+'"><span>'+esc(x.n)+'<small style="display:block;opacity:.7;white-space:normal">'+x.sub+'</small></span><span style="margin-left:auto">'+peso(x.v)+'</span>'+
-       (x.it?'<span style="flex-basis:100%;display:flex;gap:.35rem;justify-content:flex-end"><button class="pmb" data-act="spendItem" data-id="'+x.it.id+'" aria-label="Add '+esc(x.n)+' to Left to spend">+</button><button class="btn ghost small" data-act="offset" data-id="'+x.it.id+'" aria-label="Set aside, '+esc(x.n)+'">Set aside</button></span>':'')+'</div>';
+       '</div>';
   });
   h+='<small class="cap" style="white-space:normal;margin-top:.35rem">Amounts owed to you.</small></div></div>';
   /* Collapsible sections */
