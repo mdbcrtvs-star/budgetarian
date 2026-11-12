@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.17";
+var APP_VERSION="1.0.18";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -1701,7 +1701,8 @@ function applyUi(){
 var CK="budgetarian-collapsed",shut={};
 try{shut=JSON.parse(localStorage.getItem(CK))||{}}catch(e){}
 if(!("spend:Detailed entry (optional)" in shut))shut["spend:Detailed entry (optional)"]=true;
-function defShut(isSec,key){return tab==="home"||key==="income:collected"||key==="income:overdue"||(tab==="bank"&&key!=="bank:actuals")||(tab==="setup"&&!isSec)}
+Object.keys(shut).forEach(function(k){if(/^(income|spend|bank|setup):/.test(k))delete shut[k]});
+function defShut(isSec,key){return tab==="home"||tab==="income"||tab==="spend"||tab==="bank"||tab==="setup"}
 function isShut(key,isSec){return key in shut?shut[key]:defShut(isSec,key)}
 function h2Range(h){
   if(h.classList.contains("one"))return h.nextElementSibling?[h.nextElementSibling]:[];
