@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.16";
+var APP_VERSION="1.0.17";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -1253,7 +1253,6 @@ function renderHome(){
   h+='</div>';
   var when=bp&&bp.actualAt?new Date(bp.actualAt).toLocaleString("en-PH",{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"}):"";
   h+='<p class="hint" style="margin-top:1rem">'+(bp?("Bank balances last updated "+(when||"before this was tracked")+(bp!==p?", in the "+esc(labelOf(bp))+" sahod":"")+"."):"Bank balances not entered yet. Add them in the Bank tab.")+'</p>';
-  h+='<div class="acts" style="display:flex;gap:.5rem;margin-top:.5rem"><button class="btn" data-tab="spend">Record a transaction</button><button class="btn ghost" data-tab="bank">Update bank balances</button></div>';
   return h;
 }
 function buildWorkbook(){
