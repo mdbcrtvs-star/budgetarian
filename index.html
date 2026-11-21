@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.21";
+var APP_VERSION="1.0.22";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -1552,6 +1552,8 @@ function renderUpdate(){
       if(!upd.sel[a.id])return;
       var lv=r2((base||{})[a.id]);
       h+='<div class="row"><div class="lbl">'+esc(a.name||"Unnamed")+(a.type==="card"?" owed":"")+'<small>Last uploaded '+peso(lv)+'</small></div><input class="amt" inputmode="decimal" autocomplete="off" data-ub="'+a.id+'" value="'+esc(upd.vals[a.id]!==undefined?upd.vals[a.id]:"")+'" placeholder="'+fmt(lv)+'" aria-label="New balance for '+esc(a.name||"")+'"></div>';
+      if(a.id===holdDefAcct()||(state.holds||[]).some(function(x){return x.acct===a.id})){var hcv=(state.holdCur||{})[a.id];
+        h+='<div class="row"><div class="lbl">'+esc(a.name||"Unnamed")+' current balance<small>For Floating transactions. Saves right away.</small></div><input class="amt" inputmode="decimal" autocomplete="off" data-k="holdCur:'+a.id+'" value="'+(hcv===undefined||hcv===""?"":fmt(hcv))+'" aria-label="Current balance for '+esc(a.name||"")+'"></div>';}
     });
     h+='<div class="row total"><div class="lbl">Last uploaded total'+(bp&&bp!==p?'<small>From the '+esc(labelOf(bp))+'</small>':'')+'</div><div class="val">'+peso(actTotal(base))+'</div></div></div>';
     h+=go("updBanks","Proceed",!Object.keys(upd.sel).some(function(k){return upd.sel[k]}));
