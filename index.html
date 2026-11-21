@@ -351,7 +351,7 @@ function pushCloud(){
     if(again){again=false;pushCloud()}
   });
 }
-var APP_VERSION="1.0.19";
+var APP_VERSION="1.0.20";
 var dl=true,sb=null,sbUser=null;
 var CFG=window.BUDGETARIAN_CONFIG||{};
 function cloudReady(){return !!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase)}
@@ -1413,6 +1413,15 @@ function holdsHtml(p){
   var tot=r2(pend+canc);
   var h='<h2 class="band c-recon" data-key="holds">Card holds<span style="margin-left:auto;padding-right:.5rem">'+peso(tot)+'</span></h2><div class="card">';
   h+='<p class="hint" style="margin:.2rem 0 .5rem">Card charges your bank is still holding, for example from Apple Pay, Grab or Smart. They make your available balance lower than your current balance. <b>Pending</b> charges are real spending: record them in Spend as usual. <b>Cancelled</b> holds count as money owed back to you in the bank check until the bank releases them. Tap Posted or Released once they clear.</p>';
+  var ids=Object.keys(by),da=holdDefAcct();if(da&&ids.indexOf(da)<0)ids.unshift(da);
+  ids.forEach(function(aid){
+      var a=state.accounts.filter(function(y){return y.id===aid})[0];if(!a)return;
+      var av=r2((p.actual||{})[aid]),cv=state.holdCur[aid];
+      h+='<div class="row"><div class="lbl">'+esc(a.name)+' current balance<small>As shown in your bank app. Available on file: '+fmt(av)+'</small></div><input class="amt" inputmode="decimal" autocomplete="off" data-k="holdCur:'+aid+'" value="'+(cv===undefined||cv===""?"":fmt(cv))+'"></div>';
+      if(cv!==undefined&&cv!==""){var gap=r2(r2(cv)-av),un=r2(gap-(by[aid]||0));
+        h+='<div class="row"><div class="lbl">Current less available</div><div class="val">'+peso(gap)+'</div></div>'+
+           '<div class="row total"><div class="lbl">Not yet listed here<small>'+(Math.abs(un)<0.005?'All holds are listed':'Holds still to add, or amounts that changed')+'</small></div><div class="val">'+peso(un)+'</div></div>';}
+    });
   if(!L.length)h+='<div class="row"><div class="lbl"><small>No card holds right now.</small></div></div>';
   L.forEach(function(x){
     var a=state.accounts.filter(function(y){return y.id===x.acct})[0],c=x.status==="cancelled";
@@ -1424,14 +1433,6 @@ function holdsHtml(p){
     h+='<div class="row"><div class="lbl">Pending charges<small>Record these in Spend</small></div><div class="val">'+peso(r2(pend))+'</div></div>'+
        '<div class="row"><div class="lbl">Cancelled holds<small>Counted as owed back to you</small></div><div class="val">'+peso(r2(canc))+'</div></div>'+
        '<div class="row total"><div class="lbl">Total on hold</div><div class="val">'+peso(tot)+'</div></div>';
-    Object.keys(by).forEach(function(aid){
-      var a=state.accounts.filter(function(y){return y.id===aid})[0];if(!a)return;
-      var av=r2((p.actual||{})[aid]),cv=state.holdCur[aid];
-      h+='<div class="row"><div class="lbl">'+esc(a.name)+' current balance<small>As shown in your bank app. Available on file: '+fmt(av)+'</small></div><input class="amt" inputmode="decimal" autocomplete="off" data-k="holdCur:'+aid+'" value="'+(cv===undefined||cv===""?"":fmt(cv))+'"></div>';
-      if(cv!==undefined&&cv!==""){var gap=r2(r2(cv)-av),un=r2(gap-by[aid]);
-        h+='<div class="row"><div class="lbl">Current less available</div><div class="val">'+peso(gap)+'</div></div>'+
-           '<div class="row total"><div class="lbl">Not yet listed here<small>'+(Math.abs(un)<0.005?'All holds are listed':'Holds still to add, or amounts that changed')+'</small></div><div class="val">'+peso(un)+'</div></div>';}
-    });
   }
   h+='</div><div class="card" style="margin:.5rem 0 1.2rem;padding:.75rem"><div class="lbl" style="font-weight:600;margin-bottom:.3rem">Add a card hold</div>'+
      '<label for="hdDate" style="display:block;margin:.4rem 0 .2rem">Date</label><input class="txt" id="hdDate" type="date" value="'+todayIso()+'">'+
